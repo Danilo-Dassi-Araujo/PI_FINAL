@@ -34,7 +34,7 @@ public class Product {
     private Integer stockQuantity;
 
     @Column(name = "is_active")
-    private boolean isActive;
+    private Boolean isActive;
 
     @Column(name = "rate")
     private double rate;

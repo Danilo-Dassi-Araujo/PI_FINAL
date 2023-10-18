@@ -22,7 +22,4 @@ public class Product_ {
     public static volatile SingularAttribute<Product, Boolean> isActive;
     public static volatile SingularAttribute<Product, LocalDate> createdAt;
     public static volatile SingularAttribute<Product, LocalDateTime> updatedAt;
-
-
-
 }
