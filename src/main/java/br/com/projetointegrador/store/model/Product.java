@@ -28,7 +28,13 @@ public class Product {
     private BigDecimal price;
 
     @Column
+    private Integer stockQuantity;
+
+    @Column
     private double rate;
+
+    @Column
+    private boolean isActive;
 
     @Column(name = "created_at")
     private LocalDate createdAt;
