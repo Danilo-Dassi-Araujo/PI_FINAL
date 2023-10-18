@@ -1,0 +1,17 @@
+spring:
+  sql.init.mode: always
+  datasource:
+    username: postgres
+    password: 3014
+    url: jdbc:postgresql://localhost:5432/loja_pi
+  jpa:
+    database-plataform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate.ddl-auto: none
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+
+jwt.token.secret-key: my-secret
