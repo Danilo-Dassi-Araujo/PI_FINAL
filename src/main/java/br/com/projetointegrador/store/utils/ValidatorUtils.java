@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.math.BigDecimal;
+
 @RequiredArgsConstructor
 @Service
 public class ValidatorUtils {
@@ -62,7 +64,7 @@ public class ValidatorUtils {
             throw new Exception("Preço do produto está vazio!");
         }
 
-        if(productRequestDTO.getPriceProduct() < 0){
+        if(productRequestDTO.getPriceProduct().compareTo(BigDecimal.ZERO) < 0){
             throw new Exception("Preço não pode ser menor que 0.");
         }
 

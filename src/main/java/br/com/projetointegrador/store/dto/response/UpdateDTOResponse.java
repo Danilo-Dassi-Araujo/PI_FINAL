@@ -13,5 +13,5 @@ public class UpdateDTOResponse {
     private String email;
     private String name;
     private String cpf;
-    private UserRole group;
+    private UserRole role;
 }

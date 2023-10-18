@@ -2,6 +2,9 @@ package br.com.projetointegrador.store.dto.response;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.util.UUID;
+
 @Getter
 @Setter
 @Builder
@@ -10,8 +13,8 @@ import lombok.*;
 public class ListingProductResponseDTO {
 
     private String nameProduct;
-    private Integer id;
+    private UUID id;
     private Integer stockProduct;
-    private Double priceProduct;
+    private BigDecimal priceProduct;
     private Boolean isActive;
 }

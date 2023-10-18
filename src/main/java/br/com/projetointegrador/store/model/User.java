@@ -2,6 +2,7 @@ package br.com.projetointegrador.store.model;
 
 import br.com.projetointegrador.store.enums.UserRole;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -38,7 +40,7 @@ public class User implements UserDetails {
     private UserRole role;
 
     @Column
-    private boolean active;
+    private Boolean isActive;
 
     @Column(name = "created_at")
     private LocalDate createdAt;
@@ -49,7 +51,7 @@ public class User implements UserDetails {
     @PrePersist
     private void beforePersist() {
         this.id = UUID.randomUUID();
-        this.active = true;
+        this.isActive = true;
         this.createdAt = LocalDate.now();
     }
 

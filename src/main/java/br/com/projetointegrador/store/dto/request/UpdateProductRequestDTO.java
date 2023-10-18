@@ -2,6 +2,8 @@ package br.com.projetointegrador.store.dto.request;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @Builder
@@ -12,8 +14,8 @@ public class UpdateProductRequestDTO {
     private Integer id;
     private String nameProduct;
     private String description;
-    private Double assessmentProduct;
-    private Double priceProduct;
+    private Double rate;
+    private BigDecimal priceProduct;
     private Integer stockQuantity;
 
 }

@@ -18,5 +18,5 @@ public class UserRequestDTO {
     private String passwordConfirmation;
     private String cpf;
     @Enumerated(EnumType.STRING)
-    private UserRole group;
+    private UserRole role;
 }
