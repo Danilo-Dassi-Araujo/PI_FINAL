@@ -21,7 +21,7 @@ public class User implements UserDetails {
     @Id
     private UUID id;
 
-    @Column
+    @Column(name = "")
     private String name;
 
     @Column

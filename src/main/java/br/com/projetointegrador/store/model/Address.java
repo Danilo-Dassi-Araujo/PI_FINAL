@@ -2,7 +2,8 @@ package br.com.projetointegrador.store.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
+
+import java.util.UUID;
 
 
 @Entity
@@ -11,13 +12,12 @@ import org.springframework.data.annotation.Id;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "TB_ENDERECO", schema = "PUBLIC")
+@Table(name = "enderecos", schema = "PUBLIC")
 public class Address {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_endereco",insertable = false, updatable = false)
-    private Integer idEndereco;
+    @Column(name = "id")
+    private UUID idEndereco;
 
     @Column(name = "cep")
     private String cep;
@@ -43,4 +43,9 @@ public class Address {
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Client client;
+
+    @PrePersist
+    private void beforePersist() {
+        this.idEndereco = UUID.randomUUID();
+    }
 }

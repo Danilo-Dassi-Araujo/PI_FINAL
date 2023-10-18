@@ -1,8 +1,8 @@
 package br.com.projetointegrador.store.repository.specification;
 
 
-import br.com.projetointegrador.store.filter.specification.FilterProducts;
-import br.com.projetointegrador.store.filter.specification.handler.ProductPredicateHandler;
+import br.com.projetointegrador.store.specification.FilterProducts;
+import br.com.projetointegrador.store.specification.handler.ProductPredicateHandler;
 import br.com.projetointegrador.store.model.Product;
 import br.com.projetointegrador.store.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;

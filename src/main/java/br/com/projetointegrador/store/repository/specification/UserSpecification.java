@@ -1,7 +1,7 @@
 package br.com.projetointegrador.store.repository.specification;
 
-import br.com.projetointegrador.store.filter.specification.ControllerFilter;
-import br.com.projetointegrador.store.filter.specification.handler.UserPredicateHandler;
+import br.com.projetointegrador.store.specification.ControllerFilter;
+import br.com.projetointegrador.store.specification.handler.UserPredicateHandler;
 import br.com.projetointegrador.store.model.User;
 import br.com.projetointegrador.store.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

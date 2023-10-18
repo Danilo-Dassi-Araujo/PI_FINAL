@@ -1,6 +1,6 @@
-package br.com.projetointegrador.store.filter.specification.handler;
+package br.com.projetointegrador.store.specification.handler;
 
-import br.com.projetointegrador.store.filter.specification.ControllerFilter;
+import br.com.projetointegrador.store.specification.ControllerFilter;
 import br.com.projetointegrador.store.model.User;
 import br.com.projetointegrador.store.model.User_;
 import jakarta.persistence.criteria.CriteriaBuilder;
