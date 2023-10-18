@@ -1,4 +1,4 @@
-package br.com.projetointegrador.store.filter.specification;
+package br.com.projetointegrador.store.specification;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FilterProducts {
+public class ControllerFilter {
 
-    private String nameProduct;
+    private String name;
 
 }

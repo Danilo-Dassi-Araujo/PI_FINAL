@@ -1,6 +1,7 @@
 package br.com.projetointegrador.store.model;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,30 +12,32 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "products")
 public class Product {
 
     @Id
+    @Column(name = "id")
     private UUID id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @Column
+    @Column(name = "description")
     private String description;
 
-    @Column
+    @Column(name = "price")
     private BigDecimal price;
 
-    @Column
+    @Column(name = "stock_quantity")
     private Integer stockQuantity;
 
-    @Column
-    private double rate;
-
-    @Column
+    @Column(name = "is_active")
     private boolean isActive;
+
+    @Column(name = "rate")
+    private double rate;
 
     @Column(name = "created_at")
     private LocalDate createdAt;

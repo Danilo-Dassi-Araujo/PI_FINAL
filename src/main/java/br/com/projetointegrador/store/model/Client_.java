@@ -5,11 +5,13 @@ import jakarta.persistence.metamodel.StaticMetamodel;
 import javax.annotation.processing.Generated;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @StaticMetamodel(Client.class)
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 public class Client_ {
 
+    public static volatile SingularAttribute<Client, UUID> id;
     public static volatile SingularAttribute<Client, String> email;
     public static volatile SingularAttribute<Client, String> nomeCompleto;
     public static volatile SingularAttribute<Client, LocalDate> dataNascimento;

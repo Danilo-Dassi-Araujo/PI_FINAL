@@ -1,12 +1,10 @@
 package br.com.projetointegrador.store.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -14,20 +12,27 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "TB_CLIENTE", schema = "PUBLIC")
+@Table(name = "clientes", schema = "PUBLIC")
 public class Client {
 
     @Id
+    private UUID id;
+
     @Column(name = "email")
     private String email;
 
-    @Column(name = "nome_completo")
+    @Column(name = "name")
     private String nomeCompleto;
 
-    @Column(name = "data_de_nascimento")
+    @Column(name = "born_date")
     private LocalDate dataNascimento;
 
-    @Column(name = "genero")
+    @Column(name = "genre")
     private String genero;
+
+    @PrePersist
+    private void beforePersist() {
+        this.id = UUID.randomUUID();
+    }
 
 }
