@@ -3,6 +3,7 @@ package br.com.projetointegrador.store.dto.request;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -11,7 +12,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class UpdateProductRequestDTO {
     
-    private Integer id;
+    private UUID id;
     private String nameProduct;
     private String description;
     private Double rate;
