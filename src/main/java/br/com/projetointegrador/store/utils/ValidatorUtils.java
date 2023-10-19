@@ -1,6 +1,6 @@
 package br.com.projetointegrador.store.utils;
 
-import br.com.projetointegrador.store.dto.request.EmailDTORequest;
+import br.com.projetointegrador.store.dto.request.IdDTORequest;
 import br.com.projetointegrador.store.dto.request.ProductRequestDTO;
 import br.com.projetointegrador.store.dto.request.UserRequestDTO;
 import lombok.RequiredArgsConstructor;
@@ -81,8 +81,8 @@ public class ValidatorUtils {
         }
     }
 
-    public static void validateEmailRequest(EmailDTORequest emailDTORequest) throws Exception {
-        if(ObjectUtils.isEmpty(emailDTORequest)){
+    public static void validateEmailRequest(IdDTORequest idDTORequest) throws Exception {
+        if(ObjectUtils.isEmpty(idDTORequest)){
             throw new Exception("Request Vazia!");
         }
     }

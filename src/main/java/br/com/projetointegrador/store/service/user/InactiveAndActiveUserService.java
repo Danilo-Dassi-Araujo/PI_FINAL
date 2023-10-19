@@ -1,7 +1,7 @@
 package br.com.projetointegrador.store.service.user;
 
 import br.com.projetointegrador.store.builder.UserBuilder;
-import br.com.projetointegrador.store.dto.request.EmailDTORequest;
+import br.com.projetointegrador.store.dto.request.IdDTORequest;
 import br.com.projetointegrador.store.model.User;
 import br.com.projetointegrador.store.repository.UserRepository;
 import br.com.projetointegrador.store.utils.ValidatorUtils;
@@ -15,9 +15,9 @@ public class InactiveAndActiveUserService {
 
     private final UserRepository userRepository;
 
-    public void inactiveOrActiveUser(EmailDTORequest email) throws Exception {
-        ValidatorUtils.validateEmailRequest(email);
-        User user = userRepository.findByEmail(email.getEmail()).orElse(null);
+    public void inactiveOrActiveUser(IdDTORequest id) throws Exception {
+        ValidatorUtils.validateEmailRequest(id);
+        User user = userRepository.findById(id.getId()).orElse(null);
 
         if(ObjectUtils.isEmpty(user)){
             throw new Exception("Usuário não encontrado");

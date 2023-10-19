@@ -23,7 +23,9 @@ public class UserBuilder {
     public static User buildFrom(User user){
         return User
                 .builder()
+                .id(user.getId())
                 .email(user.getEmail())
+                .createdAt(user.getCreatedAt())
                 .name(user.getName())
                 .role(user.getRole())
                 .cpf(user.getCpf())

@@ -2,13 +2,15 @@ package br.com.projetointegrador.store.dto.request;
 
 import lombok.*;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmailDTORequest {
+public class IdDTORequest {
 
-    private String email;
+    private UUID id;
 
 }

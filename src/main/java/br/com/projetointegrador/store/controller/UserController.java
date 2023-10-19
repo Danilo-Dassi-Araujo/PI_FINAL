@@ -1,7 +1,6 @@
 package br.com.projetointegrador.store.controller;
 
-import br.com.projetointegrador.store.controller.dto.response.UserResponseDTO;
-import br.com.projetointegrador.store.dto.request.EmailDTORequest;
+import br.com.projetointegrador.store.dto.request.IdDTORequest;
 import br.com.projetointegrador.store.dto.request.UserRequestDTO;
 import br.com.projetointegrador.store.dto.response.ListingDTOResponse;
 import br.com.projetointegrador.store.dto.response.RegisterDTOResponse;
@@ -12,14 +11,12 @@ import br.com.projetointegrador.store.service.user.ListingUsersService;
 import br.com.projetointegrador.store.service.user.RegisterUserService;
 import br.com.projetointegrador.store.service.user.UpdateUserService;
 import br.com.projetointegrador.store.specification.ControllerFilter;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -44,8 +41,8 @@ public class UserController {
         return ResponseEntity.ok().body(registerDTOResponse);
     }
 
-    @PutMapping
-    public ResponseEntity<Void> inactiveOrActiveUser(@RequestBody EmailDTORequest email) throws Exception {
+    @PutMapping("/toggleAvailabel")
+    public ResponseEntity<Void> inactiveOrActiveUser(@RequestBody IdDTORequest email) throws Exception {
         inactiveAndActiveUserService.inactiveOrActiveUser(email);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
