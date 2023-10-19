@@ -1,5 +1,5 @@
 create table IF NOT EXISTS users (
-    active boolean,
+    is_active boolean,
     created_at date,
     updated_at timestamp(6),
     id uuid not null,

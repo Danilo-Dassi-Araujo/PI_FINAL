@@ -32,15 +32,17 @@ public class UserBuilder {
                 .build();
     }
 
-    public static User buildFrom(UserRequestDTO user, String email, String cpf, String passwordEncripted){
+    public static User buildFrom(UserRequestDTO request, String email, String cpf, String passwordEncripted, User user){
         return User
                 .builder()
+                .id(user.getId())
                 .email(email)
-                .name(user.getName())
-                .role(user.getRole())
+                .name(request.getName())
+                .role(request.getRole())
                 .cpf(cpf)
                 .password(passwordEncripted)
                 .isActive(Boolean.TRUE)
+                .createdAt(user.getCreatedAt())
                 .build();
     }
 }

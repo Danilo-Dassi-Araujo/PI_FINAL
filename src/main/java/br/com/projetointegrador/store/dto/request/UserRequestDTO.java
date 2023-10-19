@@ -5,6 +5,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.*;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Builder
@@ -20,4 +22,5 @@ public class UserRequestDTO {
     private String cpf;
     @Enumerated(EnumType.STRING)
     private UserRole role;
+    private UUID loggedUserId;
 }

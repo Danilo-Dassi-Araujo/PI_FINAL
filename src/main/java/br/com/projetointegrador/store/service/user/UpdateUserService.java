@@ -19,10 +19,11 @@ public class UpdateUserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UpdateDTOResponse updateUser(UserRequestDTO userRequestDTO, String login) throws Exception {
+    public UpdateDTOResponse updateUser(UserRequestDTO userRequestDTO) throws Exception {
         ValidatorUtils.validateRequest(userRequestDTO);
 
         User user = userRepository.findByEmail(userRequestDTO.getEmail()).orElse(null);
+        User loggedUser = userRepository.findById(userRequestDTO.getLoggedUserId()).orElse(null);
 
         if(ObjectUtils.isEmpty(user)){
             throw new Exception("Usuário não encontrado");
@@ -30,9 +31,11 @@ public class UpdateUserService {
 
         String passwordEncripted = passwordEncoder.encode(userRequestDTO.getPassword());
 
-        User toSave = UserBuilder.buildFrom(userRequestDTO, user.getEmail(), user.getCpf(), passwordEncripted);
+        User toSave = UserBuilder.buildFrom(userRequestDTO, user.getEmail(), user.getCpf(), passwordEncripted, user);
 
-        if(toSave.getEmail().equals(login) && userRequestDTO.getRole() != user.getRole()){
+        assert loggedUser != null; //valida se o usuário logado existe
+
+        if(toSave.getEmail().equals(loggedUser.getEmail()) && userRequestDTO.getRole() != user.getRole()){
             throw new Exception("Alteração de grupo para usuários logado no momento não é permitida!");
         }
 

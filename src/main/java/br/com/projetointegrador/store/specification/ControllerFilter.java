@@ -12,5 +12,6 @@ import lombok.Setter;
 public class ControllerFilter {
 
     private String name;
+    private String role;
 
 }
