@@ -13,7 +13,7 @@ public class ProductBuilder {
         return Product
                 .builder()
                 .description(productRequestDTO.getDescription())
-                .rate(productRequestDTO.getAssessmentProduct())
+                .rate(productRequestDTO.getRate())
                 .name(productRequestDTO.getNameProduct())
                 .price(productRequestDTO.getPriceProduct())
                 .stockQuantity(productRequestDTO.getStockQuantity())
@@ -31,6 +31,7 @@ public class ProductBuilder {
                 .price(product.getPrice())
                 .stockQuantity(product.getStockQuantity())
                 .isActive(product.getIsActive() ? Boolean.FALSE : Boolean.TRUE)
+                .createdAt(product.getCreatedAt())
                 .build();
     }
 
@@ -44,6 +45,7 @@ public class ProductBuilder {
                 .price(!ObjectUtils.isEmpty(productRequest.getPriceProduct()) ? productRequest.getPriceProduct() : product.getPrice())
                 .stockQuantity(!ObjectUtils.isEmpty(productRequest.getStockQuantity()) ? productRequest.getStockQuantity() : product.getStockQuantity())
                 .isActive(Boolean.TRUE)
+                .createdAt(product.getCreatedAt())
                 .build();
     }
 

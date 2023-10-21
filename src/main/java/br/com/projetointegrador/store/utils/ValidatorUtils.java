@@ -68,8 +68,8 @@ public class ValidatorUtils {
             throw new Exception("Preço não pode ser menor que 0.");
         }
 
-        if (0.5 > productRequestDTO.getAssessmentProduct() || productRequestDTO.getAssessmentProduct() > 5) {
-            throw new Exception("Avaliação: " + productRequestDTO.getAssessmentProduct() + " está fora do range de 0.5 - 5");
+        if (0.5 > productRequestDTO.getRate() || productRequestDTO.getRate() > 5) {
+            throw new Exception("Avaliação: " + productRequestDTO.getRate() + " está fora do range de 0.5 - 5");
         }
 
         if(ObjectUtils.isEmpty(productRequestDTO.getStockQuantity())){

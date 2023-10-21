@@ -10,18 +10,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Service
 public class UpdateProductService {
 
     private final ProductRepository productRepository;
 
-    public void updateProduct(UpdateProductRequestDTO updateProductRequestDTO, String role) throws Exception {
+    public void updateProduct(UpdateProductRequestDTO updateProductRequestDTO) throws Exception {
         if (ObjectUtils.isEmpty(updateProductRequestDTO)) {
             throw new Exception("Request vazia!");
         }
 
-        if (!UserRole.ADMIN.getName().equals(role)) {
+        if (!UserRole.ADMIN.getName().equals(updateProductRequestDTO.getRole())) {
             throw new Exception("Somente administradores podem alterar os produtos!");
         }
 

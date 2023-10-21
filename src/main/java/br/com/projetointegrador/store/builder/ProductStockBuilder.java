@@ -16,6 +16,7 @@ public class ProductStockBuilder {
                 .price(product.getPrice())
                 .stockQuantity(product.getStockQuantity())
                 .isActive(product.getIsActive())
+                .createdAt(product.getCreatedAt())
                 .build();
     }
 }

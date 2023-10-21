@@ -13,7 +13,7 @@ public class ProductRequestDTO {
 
     private String nameProduct;
     private String description;
-    private Double assessmentProduct;
+    private Double rate;
     private BigDecimal priceProduct;
     private Integer stockQuantity;
 

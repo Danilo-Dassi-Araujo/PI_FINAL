@@ -1,6 +1,7 @@
 package br.com.projetointegrador.store.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "products")
@@ -44,6 +46,10 @@ public class Product {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public Product(){
+
+    }
 
     @PrePersist
     private void beforePersist() {

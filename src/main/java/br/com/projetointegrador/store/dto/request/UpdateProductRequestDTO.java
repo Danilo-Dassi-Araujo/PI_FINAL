@@ -18,5 +18,6 @@ public class UpdateProductRequestDTO {
     private Double rate;
     private BigDecimal priceProduct;
     private Integer stockQuantity;
+    private String role;
 
 }

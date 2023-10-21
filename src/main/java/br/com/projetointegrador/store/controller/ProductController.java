@@ -1,13 +1,16 @@
 package br.com.projetointegrador.store.controller;
 
-import br.com.projetointegrador.store.controller.dto.request.ProductRequestDTO;
-import br.com.projetointegrador.store.controller.dto.response.ProductResponseDTO;
-import br.com.projetointegrador.store.service.ProductService;
+import br.com.projetointegrador.store.dto.request.AlterStockRequestDTO;
+import br.com.projetointegrador.store.dto.request.ProductRequestDTO;
+import br.com.projetointegrador.store.dto.request.UpdateProductRequestDTO;
+import br.com.projetointegrador.store.dto.response.ListingProductResponseDTO;
+import br.com.projetointegrador.store.dto.response.PageDTO;
+import br.com.projetointegrador.store.service.product.*;
+import br.com.projetointegrador.store.specification.FilterProducts;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -15,33 +18,40 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ProductController {
 
-    private final ProductService productService;
+    private final ListingProductsService listingProductsService;
+    private final UpdateProductService updateProductService;
+    private final AlterStockProductService alterStockProductService;
+    private final InactiveAndActiveProductService inactiveAndActiveProductService;
+    private final RegisterProductService registerProductService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ProductResponseDTO save(@RequestBody ProductRequestDTO request) {
-        return this.productService.save(request);
+
+    @PostMapping("/createProduct")
+    public ResponseEntity<Void> createProduct(@RequestBody ProductRequestDTO request) throws Exception {
+        registerProductService.registerProduct(request);
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{id}")
-    public ProductResponseDTO findById(@PathVariable UUID id) {
-        return this.productService.findById(id);
+    @PutMapping("/editProduct")
+    public ResponseEntity<Void> update(@RequestBody UpdateProductRequestDTO request) throws Exception {
+        updateProductService.updateProduct(request);
+        return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{id}")
-    public ProductResponseDTO update(@PathVariable UUID id, @RequestBody ProductRequestDTO request) {
-        return this.productService.update(id, request);
+    @PutMapping("/alterStock")
+    public ResponseEntity<Void> alterStock(@RequestBody AlterStockRequestDTO request) throws Exception {
+        alterStockProductService.alterStock(request);
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public List<ProductResponseDTO> findAll() {
-        return this.productService.findAll();
+    @PutMapping("/toggleAvailable/{id}")
+    public ResponseEntity<Void> toggleAvailable(@PathVariable UUID id) throws Exception {
+        inactiveAndActiveProductService.activeAndInactiveProduct(id);
+        return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable UUID id) {
-        this.productService.deleteById(id);
+    @GetMapping("/listingProducts")
+    public PageDTO<ListingProductResponseDTO> listingProducts(FilterProducts filterProducts, int page, int maxItems) throws Exception {
+        PageDTO<ListingProductResponseDTO> listingProductResponseDTOPageDTO = listingProductsService.listingProducts(filterProducts, page, maxItems);
+        return ResponseEntity.ok().body(listingProductResponseDTOPageDTO).getBody();
     }
-
 }
