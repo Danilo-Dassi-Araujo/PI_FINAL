@@ -1,6 +1,7 @@
 package br.com.projetointegrador.store.controller;
 
 import br.com.projetointegrador.store.dto.request.AlterStockRequestDTO;
+import br.com.projetointegrador.store.dto.request.ImageRequestDTO;
 import br.com.projetointegrador.store.dto.request.ProductRequestDTO;
 import br.com.projetointegrador.store.dto.request.UpdateProductRequestDTO;
 import br.com.projetointegrador.store.dto.response.ListingProductResponseDTO;
@@ -10,7 +11,9 @@ import br.com.projetointegrador.store.specification.FilterProducts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -23,11 +26,14 @@ public class ProductController {
     private final AlterStockProductService alterStockProductService;
     private final InactiveAndActiveProductService inactiveAndActiveProductService;
     private final RegisterProductService registerProductService;
+    private final EditImage editImage;
+    private final ImageSave imageSave;
 
 
     @PostMapping("/createProduct")
-    public ResponseEntity<Void> createProduct(@RequestBody ProductRequestDTO request) throws Exception {
-        registerProductService.registerProduct(request);
+    public ResponseEntity<Void> createProduct(@RequestBody ProductRequestDTO request,
+                                              @RequestParam List<MultipartFile> files) throws Exception {
+        registerProductService.registerProduct(request, files);
         return ResponseEntity.ok().build();
     }
 
@@ -36,6 +42,13 @@ public class ProductController {
         updateProductService.updateProduct(request);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/editProduct/{id}")
+    public ResponseEntity<Void> updateImage(@RequestBody List<MultipartFile> files, @PathVariable UUID id) throws Exception {
+        editImage.editImage(files, id);
+        return ResponseEntity.ok().build();
+    }
+
 
     @PutMapping("/alterStock")
     public ResponseEntity<Void> alterStock(@RequestBody AlterStockRequestDTO request) throws Exception {
@@ -53,5 +66,12 @@ public class ProductController {
     public PageDTO<ListingProductResponseDTO> listingProducts(FilterProducts filterProducts, int page, int maxItems) throws Exception {
         PageDTO<ListingProductResponseDTO> listingProductResponseDTOPageDTO = listingProductsService.listingProducts(filterProducts, page, maxItems);
         return ResponseEntity.ok().body(listingProductResponseDTOPageDTO).getBody();
+    }
+
+    @PostMapping("/process-base64")
+    public ResponseEntity<String> processBase64(@RequestBody ImageRequestDTO base64String) {
+
+        imageSave.saveImage(base64String.getBase64());
+        return ResponseEntity.ok("Arquivo processado com sucesso.");
     }
 }

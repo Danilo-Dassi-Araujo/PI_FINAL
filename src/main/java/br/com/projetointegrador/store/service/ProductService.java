@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -21,7 +22,6 @@ public class ProductService {
 
     private final ModelMapper modelMapper;
     private final ProductRepository productRepository;
-
     public ProductResponseDTO findById(UUID id) {
         var product = this.getById(id);
 

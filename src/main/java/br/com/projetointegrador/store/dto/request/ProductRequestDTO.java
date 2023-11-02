@@ -3,6 +3,7 @@ package br.com.projetointegrador.store.dto.request;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,5 +17,5 @@ public class ProductRequestDTO {
     private Double rate;
     private BigDecimal priceProduct;
     private Integer stockQuantity;
-
+    private List<ImageRequestDTO> imageList;
 }
