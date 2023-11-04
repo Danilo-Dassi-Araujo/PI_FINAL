@@ -21,6 +21,8 @@ public class UpdateProductRequestDTO {
     private BigDecimal priceProduct;
     private Integer stockQuantity;
     private String role;
-    private List<MultipartFile> files;
+    private List<UpdateProductImage> imagesRest;
+    private List<UpdateProductImage> imagesToDelete;
+    private List<UpdateProductImage> imagesToSave;
 
 }

@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class ImageSave {
 
-    public String saveImage(String base64String){
+    public String saveImage(String base64String, String id){
         // Use regex para remover a parte inicial "data:image/jpeg;base64,"
         String base64Data = base64String;
 //        base64Data = base64Data.replaceAll("[^a-zA-Z0-9/+=]", "");
@@ -38,7 +38,7 @@ public class ImageSave {
         String fileName = timestamp + "_" + random + "." + imageExtension; // Use a extensão apropriada
 
         // Defina o caminho completo para a pasta produtosImagem
-        String pathToProdutosImagem = "produtosImagem/";
+        String pathToProdutosImagem = "produtosImagem/"+ id +"/";
 
         // Verifique se o diretório existe e crie-o, se necessário
         File produtosImagemDirectory = new File(pathToProdutosImagem);
@@ -58,6 +58,6 @@ public class ImageSave {
             e.printStackTrace();
             return "Erro ao processar o arquivo.";
         }
-        return "Imagem salva com sucesso.";
+        return fileName;
     }
 }

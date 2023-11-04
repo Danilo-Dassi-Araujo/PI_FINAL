@@ -20,10 +20,11 @@ public class Image {
     @Column(name = "id_image",insertable=false, updatable=false)
     private Integer id;
 
-    @Column(name = "nome")
-    private String nome;
+    @Column(name = "path")
+    private String path;
 
-    private byte[] dados;
+    @Column(name = "isdefault")
+    private Boolean isDefault;
 
     @ManyToOne
     @JoinColumn(name = "produto_id")

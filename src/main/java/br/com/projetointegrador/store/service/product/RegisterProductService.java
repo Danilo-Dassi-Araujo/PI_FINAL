@@ -1,6 +1,7 @@
 package br.com.projetointegrador.store.service.product;
 
 import br.com.projetointegrador.store.builder.ProductBuilder;
+import br.com.projetointegrador.store.dto.request.ImageRequestDTO;
 import br.com.projetointegrador.store.dto.request.ProductRequestDTO;
 import br.com.projetointegrador.store.model.Image;
 import br.com.projetointegrador.store.model.Product;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,21 +22,25 @@ public class RegisterProductService {
 
     private final ProductRepository productRepository;
     private final ImageRepository imageRepository;
+    private final ImageSave imageSave;
 
-    public void registerProduct(ProductRequestDTO productRequestDTO, List<MultipartFile> files) throws Exception {
+    public void registerProduct(ProductRequestDTO productRequestDTO) throws Exception {
         if (!ObjectUtils.isEmpty(productRequestDTO)) {
             ValidatorUtils.validateProduct(productRequestDTO);
 
             Product productToSave = ProductBuilder.buildFrom(productRequestDTO);
             Product savedProduct = productRepository.save(productToSave);
-            if(!ObjectUtils.isEmpty(files)){
-                for (MultipartFile file : files) {
+            if(!ObjectUtils.isEmpty(productRequestDTO.getImageList())){
+                List<Image> listImage = new ArrayList<>();
+                for (ImageRequestDTO image : productRequestDTO.getImageList()) {
                     Image imagem = new Image();
-                    imagem.setNome(file.getOriginalFilename());
-                    imagem.setDados(file.getBytes()); // Converta o MultipartFile para bytes
+                    String path = imageSave.saveImage(image.getBase64(), savedProduct.getId().toString());
                     imagem.setProductId(savedProduct);
-                    imageRepository.save(imagem);
+                    imagem.setPath(path);
+                    imagem.setIsDefault(image.getIsDefault());
+                    listImage.add(imagem);
                 }
+                imageRepository.saveAll(listImage);
             }
         }
     }
