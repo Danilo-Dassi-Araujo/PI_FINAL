@@ -12,10 +12,10 @@ import java.util.List;
 @NoArgsConstructor
 public class ProductRequestDTO {
 
-    private String nameProduct;
+    private String name;
     private String description;
-    private Double rate;
-    private BigDecimal priceProduct;
-    private Integer stockQuantity;
-    private List<ImageRequestDTO> imageList;
+    private Double rating;
+    private BigDecimal price;
+    private Integer stock;
+    private List<ImageRequestDTO> images;
 }

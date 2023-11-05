@@ -11,7 +11,6 @@ import br.com.projetointegrador.store.utils.ValidatorUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +29,11 @@ public class RegisterProductService {
 
             Product productToSave = ProductBuilder.buildFrom(productRequestDTO);
             Product savedProduct = productRepository.save(productToSave);
-            if(!ObjectUtils.isEmpty(productRequestDTO.getImageList())){
+            if(!ObjectUtils.isEmpty(productRequestDTO.getImages())){
                 List<Image> listImage = new ArrayList<>();
-                for (ImageRequestDTO image : productRequestDTO.getImageList()) {
+                for (ImageRequestDTO image : productRequestDTO.getImages()) {
                     Image imagem = new Image();
-                    String path = imageSave.saveImage(image.getBase64(), savedProduct.getId().toString());
+                    String path = imageSave.saveImage(image.getFile(), savedProduct.getId().toString());
                     imagem.setProductId(savedProduct);
                     imagem.setPath(path);
                     imagem.setIsDefault(image.getIsDefault());

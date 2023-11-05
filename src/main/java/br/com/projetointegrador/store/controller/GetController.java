@@ -1,10 +1,7 @@
 package br.com.projetointegrador.store.controller;
 
 import br.com.projetointegrador.store.dto.request.CepDTORequest;
-import br.com.projetointegrador.store.dto.response.CepFeignResponseDTO;
-import br.com.projetointegrador.store.dto.response.ListingDTOResponse;
-import br.com.projetointegrador.store.dto.response.ListingProductResponseDTO;
-import br.com.projetointegrador.store.dto.response.PageDTO;
+import br.com.projetointegrador.store.dto.response.*;
 import br.com.projetointegrador.store.model.Image;
 import br.com.projetointegrador.store.model.Product;
 import br.com.projetointegrador.store.repository.ImageRepository;
@@ -38,11 +35,9 @@ public class GetController {
     private final ImageRepository imageRepository;
     private final ProductRepository productRepository;
 
-
-
     @GetMapping("/listingProducts")
-    public ResponseEntity<PageDTO<ListingProductResponseDTO>> listingProducts(FilterProducts controllerFilter, @RequestParam int page, @RequestParam int maxItems) {
-        PageDTO<ListingProductResponseDTO> listingProductResponseDTOS = listingProductsService.listingProducts(controllerFilter, page, maxItems);
+    public ResponseEntity<PageDTO<ListingProductMainImageResponseDTO>> listingProducts(FilterProducts controllerFilter, @RequestParam int page, @RequestParam int maxItems) {
+        PageDTO<ListingProductMainImageResponseDTO> listingProductResponseDTOS = listingProductsService.listingProducts(controllerFilter, page, maxItems);
         return ResponseEntity.ok().body(listingProductResponseDTOS);
     }
     @GetMapping("/cep")

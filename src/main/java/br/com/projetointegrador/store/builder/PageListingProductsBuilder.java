@@ -1,8 +1,11 @@
 package br.com.projetointegrador.store.builder;
 
-import br.com.projetointegrador.store.dto.response.ListingProductResponseDTO;
+import br.com.projetointegrador.store.dto.response.ImageListingResponseDTO;
+import br.com.projetointegrador.store.dto.response.ListingProductMainImageResponseDTO;
 import br.com.projetointegrador.store.dto.response.PageDTO;
+import br.com.projetointegrador.store.model.Image;
 import br.com.projetointegrador.store.model.Product;
+import br.com.projetointegrador.store.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -15,8 +18,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PageListingProductsBuilder {
 
-    public static PageDTO<ListingProductResponseDTO> buildFrom(Page<Product> productPage) {
-        return PageDTO.<ListingProductResponseDTO>builder()
+    private final ImageRepository imageRepository;
+
+
+    public PageDTO<ListingProductMainImageResponseDTO> buildFrom(Page<Product> productPage) {
+        return PageDTO.<ListingProductMainImageResponseDTO>builder()
                 .pageNum(productPage.getNumber() + 1)
                 .pageItemsNum(productPage.getNumberOfElements())
                 .totalItems(productPage.getTotalElements())
@@ -25,20 +31,38 @@ public class PageListingProductsBuilder {
                 .build();
     }
 
-    private static List<ListingProductResponseDTO> getListingProductResponse(List<Product> productList) {
+    private List<ListingProductMainImageResponseDTO> getListingProductResponse(List<Product> productList) {
         return productList.stream()
                 .filter(Objects::nonNull)
-                .map(PageListingProductsBuilder::fromProduct)
+                .map(this::fromProduct)
                 .collect(Collectors.toList());
     }
 
-    private static ListingProductResponseDTO fromProduct(Product product) {
-        return ListingProductResponseDTO.builder()
+    private ListingProductMainImageResponseDTO fromProduct(Product product) {
+
+        List<Image> allImagesForProduct = imageRepository.findAllByProductId(product);
+
+        List<Image> imageDefault = allImagesForProduct.stream()
+                .filter(image -> Boolean.TRUE.equals(image.getIsDefault()))
+                .toList();
+
+        ImageListingResponseDTO build =
+                ImageListingResponseDTO
+                        .builder()
+                        .id(imageDefault.get(0).getId())
+                        .path(imageDefault.get(0).getPath())
+                        .isDefault(imageDefault.get(0).getIsDefault())
+                        .build();
+
+        return ListingProductMainImageResponseDTO.builder()
                 .id(product.getId())
-                .nameProduct(product.getName())
-                .stockProduct(product.getStockQuantity())
-                .priceProduct(product.getPrice())
+                .name(product.getName())
+                .rating(product.getRate())
+                .description(product.getDescription())
+                .stock(product.getStockQuantity())
+                .price(product.getPrice())
                 .isActive(product.getIsActive())
+                .images(build)
                 .build();
     }
 }

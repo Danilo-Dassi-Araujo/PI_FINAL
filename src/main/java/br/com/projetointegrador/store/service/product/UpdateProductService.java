@@ -13,10 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -25,11 +24,14 @@ public class UpdateProductService {
     private final ProductRepository productRepository;
     private final ImageRepository imageRepository;
     private final ImageSave imageSave;
+    private final ImageRemove imageRemove;
 
     public void updateProduct(UpdateProductRequestDTO updateProductRequestDTO) throws Exception {
         if (ObjectUtils.isEmpty(updateProductRequestDTO)) {
             throw new Exception("Request vazia!");
         }
+
+        updateProductRequestDTO.setRole("Administrador");
 
         if (!UserRole.ADMIN.getName().equals(updateProductRequestDTO.getRole())) {
             throw new Exception("Somente administradores podem alterar os produtos!");
@@ -45,11 +47,11 @@ public class UpdateProductService {
 
         Product productToSave = productRepository.save(updateProductToSave);
 
-        if (!ObjectUtils.isEmpty(updateProductRequestDTO.getImagesToSave())) {
+        if (!ObjectUtils.isEmpty(updateProductRequestDTO.getNewImages())) {
             imagesToSave(updateProductRequestDTO, productToSave);
         }
 
-        if (!ObjectUtils.isEmpty(updateProductRequestDTO.getImagesRest())) {
+        if (!ObjectUtils.isEmpty(updateProductRequestDTO.getImages())) {
             imagesRest(updateProductRequestDTO, productToSave);
         }
 
@@ -61,7 +63,7 @@ public class UpdateProductService {
     private void imagesToSave(UpdateProductRequestDTO updateProductRequestDTO, Product productToSave) {
 
         List<UpdateProductImage> imagesIsDefaultTrue = new ArrayList<>();
-        for (UpdateProductImage image : updateProductRequestDTO.getImagesToSave()) {
+        for (UpdateProductImage image : updateProductRequestDTO.getNewImages()) {
             if (Boolean.TRUE.equals(image.getIsDefault())) {
                 imagesIsDefaultTrue.add(image);
             }
@@ -72,7 +74,7 @@ public class UpdateProductService {
             allByProductId
                     .forEach(image -> image.setIsDefault(false));
 
-            for (UpdateProductImage image : updateProductRequestDTO.getImagesToSave()) {
+            for (UpdateProductImage image : updateProductRequestDTO.getNewImages()) {
                 String path = imageSave.saveImage(image.getPath(), productToSave.getId().toString());
 
                 Image imagem = Image
@@ -95,7 +97,7 @@ public class UpdateProductService {
 
             List<Image> listImage = new ArrayList<>();
 
-            for (UpdateProductImage image : updateProductRequestDTO.getImagesToSave()) {
+            for (UpdateProductImage image : updateProductRequestDTO.getNewImages()) {
                 String path = imageSave.saveImage(image.getPath(), productToSave.getId().toString());
 
                 Image imagem = Image
@@ -117,7 +119,7 @@ public class UpdateProductService {
     private void imagesRest(UpdateProductRequestDTO updateProductRequestDTO, Product productToSave) {
 
         List<UpdateProductImage> imagesIsDefaultTrue = new ArrayList<>();
-        for (UpdateProductImage image : updateProductRequestDTO.getImagesRest()) {
+        for (UpdateProductImage image : updateProductRequestDTO.getImages()) {
             if (Boolean.TRUE.equals(image.getIsDefault())) {
                 imagesIsDefaultTrue.add(image);
             }
@@ -128,7 +130,7 @@ public class UpdateProductService {
             allByProductId
                     .forEach(image -> image.setIsDefault(false));
 
-            for (UpdateProductImage image : updateProductRequestDTO.getImagesRest()) {
+            for (UpdateProductImage image : updateProductRequestDTO.getImages()) {
                 String path = imageSave.saveImage(image.getPath(), productToSave.getId().toString());
 
                 Image imagem = Image
@@ -151,7 +153,7 @@ public class UpdateProductService {
 
             List<Image> listImage = new ArrayList<>();
 
-            for (UpdateProductImage image : updateProductRequestDTO.getImagesRest()) {
+            for (UpdateProductImage image : updateProductRequestDTO.getImages()) {
                 String path = imageSave.saveImage(image.getPath(), productToSave.getId().toString());
 
                 Image imagem = Image
@@ -170,17 +172,16 @@ public class UpdateProductService {
         }
     }
 
-    private void imagesToDelete(UpdateProductRequestDTO updateProductRequestDTO, Product productToSave) {
-        List<Integer> list = updateProductRequestDTO.getImagesToDelete().stream().map(UpdateProductImage::getId).toList();
+    private void imagesToDelete(UpdateProductRequestDTO updateProductRequestDTO, Product productToSave) throws IOException {
+        List<Integer> list =
+                updateProductRequestDTO
+                        .getImagesToDelete()
+                        .stream()
+                        .map(UpdateProductImage::getId).toList();
         List<Image> allByProductId = imageRepository.findAllByProductId(productToSave);
 
         List<Image> listaDeImagens = new ArrayList<>(allByProductId);
-        for(Image i: listaDeImagens){
-            boolean contains = list.contains(i.getId());
-            if(contains){
-                listaDeImagens.remove(i);
-            }
-        }
+        listaDeImagens.removeIf(i -> list.contains(i.getId()));
 
         List<Image> imagesToSave = new ArrayList<>();
         for(Image i: listaDeImagens){
@@ -193,7 +194,13 @@ public class UpdateProductService {
             listaDeImagens.get(0).setIsDefault(true);
         }
 
-        imageRepository.deleteAllById(list);
+
+        list.forEach(imageRepository::deleteById);
+
         imageRepository.saveAll(listaDeImagens);
+        for(UpdateProductImage i: updateProductRequestDTO.getImagesToDelete()){
+            String pathImage = productToSave.getId().toString() +"/"+ i.getPath();
+            imageRemove.removeImage("produtosImagem/", pathImage);
+        }
     }
 }

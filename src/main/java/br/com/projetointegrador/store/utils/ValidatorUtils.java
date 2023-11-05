@@ -44,11 +44,11 @@ public class ValidatorUtils {
     }
 
     public static void validateProduct(ProductRequestDTO productRequestDTO) throws Exception {
-        if (ObjectUtils.isEmpty(productRequestDTO.getNameProduct())) {
+        if (ObjectUtils.isEmpty(productRequestDTO.getName())) {
             throw new Exception("Nome do produto está vazio!");
         }
 
-        if (ObjectUtils.isEmpty(productRequestDTO.getNameProduct().length() > 200)) {
+        if (ObjectUtils.isEmpty(productRequestDTO.getName().length() > 200)) {
             throw new Exception("O nome do produto não pode conter mais de 200 caracteres!");
         }
 
@@ -60,23 +60,23 @@ public class ValidatorUtils {
             throw new Exception("A descrição não pode conter mais de 2000 caracteres!");
         }
 
-        if(ObjectUtils.isEmpty(productRequestDTO.getPriceProduct())){
+        if(ObjectUtils.isEmpty(productRequestDTO.getPrice())){
             throw new Exception("Preço do produto está vazio!");
         }
 
-        if(productRequestDTO.getPriceProduct().compareTo(BigDecimal.ZERO) < 0){
+        if(productRequestDTO.getPrice().compareTo(BigDecimal.ZERO) < 0){
             throw new Exception("Preço não pode ser menor que 0.");
         }
 
-        if (0.5 > productRequestDTO.getRate() || productRequestDTO.getRate() > 5) {
-            throw new Exception("Avaliação: " + productRequestDTO.getRate() + " está fora do range de 0.5 - 5");
+        if (0.5 > productRequestDTO.getRating() || productRequestDTO.getRating() > 5) {
+            throw new Exception("Avaliação: " + productRequestDTO.getRating() + " está fora do range de 0.5 - 5");
         }
 
-        if(ObjectUtils.isEmpty(productRequestDTO.getStockQuantity())){
+        if(ObjectUtils.isEmpty(productRequestDTO.getStock())){
             throw new Exception("Quantidade não pode ser vazio!");
         }
 
-        if (productRequestDTO.getStockQuantity() < 0) {
+        if (productRequestDTO.getStock() < 0) {
             throw new Exception("Quantidade não pode ser menor que 0.");
         }
     }

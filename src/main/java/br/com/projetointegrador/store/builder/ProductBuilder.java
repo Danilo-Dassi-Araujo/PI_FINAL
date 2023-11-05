@@ -13,10 +13,10 @@ public class ProductBuilder {
         return Product
                 .builder()
                 .description(productRequestDTO.getDescription())
-                .rate(productRequestDTO.getRate())
-                .name(productRequestDTO.getNameProduct())
-                .price(productRequestDTO.getPriceProduct())
-                .stockQuantity(productRequestDTO.getStockQuantity())
+                .rate(productRequestDTO.getRating())
+                .name(productRequestDTO.getName())
+                .price(productRequestDTO.getPrice())
+                .stockQuantity(productRequestDTO.getStock())
                 .isActive(Boolean.TRUE)
                 .build();
     }
@@ -41,9 +41,9 @@ public class ProductBuilder {
                 .id(product.getId())
                 .description(!ObjectUtils.isEmpty(productRequest.getDescription()) ? productRequest.getDescription() : product.getDescription())
                 .rate(!ObjectUtils.isEmpty(productRequest.getRate()) ? productRequest.getRate() : product.getRate())
-                .name(!ObjectUtils.isEmpty(productRequest.getNameProduct()) ? productRequest.getNameProduct() : product.getName())
-                .price(!ObjectUtils.isEmpty(productRequest.getPriceProduct()) ? productRequest.getPriceProduct() : product.getPrice())
-                .stockQuantity(!ObjectUtils.isEmpty(productRequest.getStockQuantity()) ? productRequest.getStockQuantity() : product.getStockQuantity())
+                .name(!ObjectUtils.isEmpty(productRequest.getName()) ? productRequest.getName() : product.getName())
+                .price(!ObjectUtils.isEmpty(productRequest.getPrice()) ? productRequest.getPrice() : product.getPrice())
+                .stockQuantity(!ObjectUtils.isEmpty(productRequest.getStock()) ? productRequest.getStock() : product.getStockQuantity())
                 .isActive(Boolean.TRUE)
                 .createdAt(product.getCreatedAt())
                 .build();

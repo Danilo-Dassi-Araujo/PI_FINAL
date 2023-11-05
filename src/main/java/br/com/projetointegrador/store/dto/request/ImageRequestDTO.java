@@ -9,6 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 public class ImageRequestDTO {
 
-    private String base64;
+    private String file;
     private Boolean isDefault;
 }

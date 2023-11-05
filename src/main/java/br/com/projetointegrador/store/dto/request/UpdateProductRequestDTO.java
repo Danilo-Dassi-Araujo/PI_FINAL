@@ -1,7 +1,6 @@
 package br.com.projetointegrador.store.dto.request;
 
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -15,14 +14,14 @@ import java.util.UUID;
 public class UpdateProductRequestDTO {
     
     private UUID id;
-    private String nameProduct;
+    private String name;
     private String description;
     private Double rate;
-    private BigDecimal priceProduct;
-    private Integer stockQuantity;
+    private BigDecimal price;
+    private Integer stock;
     private String role;
-    private List<UpdateProductImage> imagesRest;
+    private List<UpdateProductImage> images;
     private List<UpdateProductImage> imagesToDelete;
-    private List<UpdateProductImage> imagesToSave;
+    private List<UpdateProductImage> newImages;
 
 }
