@@ -16,6 +16,7 @@ import java.util.UUID;
 public class Client {
 
     @Id
+    @Column(name = "id")
     private UUID id;
 
     @Column(name = "email")
@@ -23,6 +24,9 @@ public class Client {
 
     @Column(name = "name")
     private String nomeCompleto;
+
+    @Column(name = "password")
+    private String senha;
 
     @Column(name = "born_date")
     private LocalDate dataNascimento;

@@ -4,6 +4,8 @@ spring:
     username: postgres
     password: 3014
     url: jdbc:postgresql://localhost:5432/loja_pi
+#    password: Tadspistore101
+#    url: jdbc:postgresql://store-pi-tads.cpzcdsdkye4t.sa-east-1.rds.amazonaws.com:5432/loja_pi
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate.ddl-auto: none

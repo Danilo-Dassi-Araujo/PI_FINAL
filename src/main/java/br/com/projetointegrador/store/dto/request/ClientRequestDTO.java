@@ -1,8 +1,9 @@
 package br.com.projetointegrador.store.dto.request;
 
-import java.time.LocalDate;
-
 import lombok.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,10 +13,12 @@ import lombok.*;
 public class ClientRequestDTO {
 
     private String email;
-    private String nomeCompleto;
+    private String fullname;
     private String password;
-    private String passwordConfirmation;
-    private String genero;
-    private LocalDate dataNascimento;
+    private String cpf;
+    private LocalDate birth_date;
+    private Integer gender_id;
+    private DeliveryAddressDTO billing_address;
+    private List<DeliveryAddressDTO> delivery_address;
 
 }

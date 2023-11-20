@@ -45,3 +45,14 @@ create table IF NOT EXISTS enderecos (
     FOREIGN KEY (id_cliente) REFERENCES clientes (id)
 );
 
+--CREATE TABLE IF NOT EXISTS public.imagens
+--(
+--    id_image serial NOT NULL,
+--    produto_id uuid,
+--    path character varying(255) COLLATE pg_catalog."default" NOT NULL,
+--    isdefault boolean DEFAULT false,
+--    CONSTRAINT imagens_pkey PRIMARY KEY (id_image),
+--    CONSTRAINT imagens_produto_id_fkey FOREIGN KEY (produto_id)
+--        REFERENCES public.products (id)
+--);
+

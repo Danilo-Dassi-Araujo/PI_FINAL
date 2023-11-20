@@ -11,9 +11,8 @@ public class RegisterClientDTOResponseBuilder {
         return RegisterClientDTOResponse
                 .builder()
                 .email(clientRequestDTO.getEmail())
-                .nomeCompleto(clientRequestDTO.getNomeCompleto())
-                .dataNascimento(clientRequestDTO.getDataNascimento())
-                .genero(clientRequestDTO.getGenero())
+                .nomeCompleto(clientRequestDTO.getFullname())
+                .dataNascimento(clientRequestDTO.getBirth_date())
                 .build();
     }
 }

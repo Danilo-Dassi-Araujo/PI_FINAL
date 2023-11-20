@@ -40,6 +40,12 @@ public class Address {
     @Column(name = "uf")
     private String uf;
 
+    @Column(name = "isDefault")
+    private Boolean isDefault;
+
+    @Column(name = "typeAddress")
+    private String typeAddress;
+
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Client client;
