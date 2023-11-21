@@ -7,8 +7,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum PaymentsMethodsEnum {
 
-    CARTAO_DE_CREDITO("Cartão de Crédito"),
-    BOLETO("Boleto");
+    CARTAO_DE_CREDITO(1,"Cartão de Crédito"),
+    BOLETO(2,"Boleto");
 
+    private final Integer id;
     private final String paymentMethod;
 }

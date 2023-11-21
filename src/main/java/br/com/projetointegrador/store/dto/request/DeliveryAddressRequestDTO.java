@@ -7,7 +7,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeliveryAddressDTO {
+public class DeliveryAddressRequestDTO {
 
     private String cep;
     private String city;

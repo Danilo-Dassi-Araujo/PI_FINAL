@@ -10,11 +10,12 @@ import java.util.List;
 @AllArgsConstructor
 public enum UserRole {
 
-    ADMIN("Administrador"),
-    STOCKIST("Estoquista"),
-    CLIENT("Cliente");
+    ADMIN("Administrador", 1),
+    STOCKIST("Estoquista",2),
+    CLIENT("Cliente",3);
 
     private String name;
+    private Integer id;
 
     public List<SimpleGrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_".concat(this.name())));

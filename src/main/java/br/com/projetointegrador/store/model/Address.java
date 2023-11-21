@@ -40,10 +40,13 @@ public class Address {
     @Column(name = "uf")
     private String uf;
 
-    @Column(name = "isDefault")
+    @Column(name = "is_default")
     private Boolean isDefault;
 
-    @Column(name = "typeAddress")
+    @Column(name = "is_ativo")
+    private Boolean isActive;
+
+    @Column(name = "type_address")
     private String typeAddress;
 
     @ManyToOne

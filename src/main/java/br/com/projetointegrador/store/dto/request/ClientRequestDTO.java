@@ -17,8 +17,8 @@ public class ClientRequestDTO {
     private String password;
     private String cpf;
     private LocalDate birth_date;
-    private Integer gender_id;
-    private DeliveryAddressDTO billing_address;
-    private List<DeliveryAddressDTO> delivery_address;
+    private String gender_id;
+    private DeliveryAddressRequestDTO billing_address;
+    private List<DeliveryAddressRequestDTO> delivery_address;
 
 }

@@ -3,11 +3,14 @@ package br.com.projetointegrador.store.service.client;
 import br.com.projetointegrador.store.builder.AddressBuilder;
 import br.com.projetointegrador.store.builder.ClientBuilder;
 import br.com.projetointegrador.store.builder.RegisterClientDTOResponseBuilder;
+import br.com.projetointegrador.store.builder.UserBuilder;
 import br.com.projetointegrador.store.dto.request.ClientRequestDTO;
 import br.com.projetointegrador.store.model.Address;
 import br.com.projetointegrador.store.model.Client;
+import br.com.projetointegrador.store.model.User;
 import br.com.projetointegrador.store.repository.AddressRepository;
 import br.com.projetointegrador.store.repository.ClientRepository;
+import br.com.projetointegrador.store.repository.UserRepository;
 import br.com.projetointegrador.store.utils.GenderUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +24,7 @@ import java.util.List;
 public class RegisterClientService {
 
     private final ClientRepository clientRepository;
+    private final UserRepository userRepository;
     private final AddressRepository addressRepository;
     private final PasswordEncoder passwordEncoder;
     private final GenderUtils getGenderService;
@@ -40,6 +44,9 @@ public class RegisterClientService {
 
         Client toSave = ClientBuilder.buildFrom(clientRequestDTO, passwordEncrypted, gender);
         Client savedClient = clientRepository.save(toSave);
+
+        User userToSave = UserBuilder.buildFrom(clientRequestDTO);
+        userRepository.save(userToSave);
 
         Address toSaveAddress = AddressBuilder.buildFrom(clientRequestDTO, savedClient);
         addressRepository.save(toSaveAddress);

@@ -7,10 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class GenderUtils {
-    public String getGender(Integer id) {
-        String idGender = id.toString();
+    public String getGender(String id) {
         for (GenderEnum a : GenderEnum.values()) {
-            if (idGender.equals(a.getId())) {
+            if (id.equals(a.getId())) {
                 return a.getGender();
             }
         }

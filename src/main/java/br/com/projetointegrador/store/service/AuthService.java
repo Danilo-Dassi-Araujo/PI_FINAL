@@ -24,6 +24,7 @@ public class AuthService {
 
     public AuthResponseDTO authenticate(AuthRequestDTO request) {
         var user = this.userService.loadUserByUsername(request.getEmail());
+
         var authenticationToken = new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword());
 
         this.authenticationManager.authenticate(authenticationToken);

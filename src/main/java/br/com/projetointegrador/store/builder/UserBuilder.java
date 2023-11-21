@@ -1,9 +1,14 @@
 package br.com.projetointegrador.store.builder;
 
+import br.com.projetointegrador.store.dto.request.ClientRequestDTO;
 import br.com.projetointegrador.store.dto.request.UserRequestDTO;
 import br.com.projetointegrador.store.dto.response.RegisterDTOResponse;
+import br.com.projetointegrador.store.enums.UserRole;
+import br.com.projetointegrador.store.model.Client;
 import br.com.projetointegrador.store.model.User;
 import lombok.RequiredArgsConstructor;
+
+import java.time.LocalDate;
 
 @RequiredArgsConstructor
 public class UserBuilder {
@@ -45,6 +50,32 @@ public class UserBuilder {
                 .password(passwordEncripted)
                 .isActive(Boolean.TRUE)
                 .createdAt(user.getCreatedAt())
+                .build();
+    }
+
+    public static User buildFrom(ClientRequestDTO request){
+        return User
+                .builder()
+                .email(request.getEmail())
+                .name(request.getFullname())
+                .role(UserRole.CLIENT)
+                .cpf(request.getCpf())
+                .password(request.getPassword())
+                .isActive(Boolean.TRUE)
+                .createdAt(LocalDate.now())
+                .build();
+    }
+    public static User buildFrom(Client request){
+        return User
+                .builder()
+                .id(request.getId())
+                .email(request.getEmail())
+                .name(request.getNomeCompleto())
+                .role(UserRole.CLIENT)
+                .cpf(request.getCpf())
+                .password(request.getSenha())
+                .isActive(Boolean.TRUE)
+                .createdAt(LocalDate.now())
                 .build();
     }
 }

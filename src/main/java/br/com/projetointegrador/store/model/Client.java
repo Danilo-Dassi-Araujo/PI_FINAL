@@ -28,10 +28,13 @@ public class Client {
     @Column(name = "password")
     private String senha;
 
-    @Column(name = "born_date")
+    @Column(name = "cpf")
+    private String cpf;
+
+    @Column(name = "birth_date")
     private LocalDate dataNascimento;
 
-    @Column(name = "genre")
+    @Column(name = "gender")
     private String genero;
 
     @PrePersist

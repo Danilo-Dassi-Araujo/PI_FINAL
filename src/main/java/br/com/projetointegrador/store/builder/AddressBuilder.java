@@ -1,11 +1,12 @@
 package br.com.projetointegrador.store.builder;
 
 import br.com.projetointegrador.store.dto.request.ClientRequestDTO;
-import br.com.projetointegrador.store.dto.request.DeliveryAddressDTO;
+import br.com.projetointegrador.store.dto.request.DeliveryAddressRequestDTO;
 import br.com.projetointegrador.store.enums.AddressTypeEnum;
 import br.com.projetointegrador.store.model.Address;
 import br.com.projetointegrador.store.model.Client;
 import lombok.RequiredArgsConstructor;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,11 @@ import java.util.List;
 public class AddressBuilder {
 
     public static Address buildFrom(ClientRequestDTO clientRequestDTO, Client client) {
+
+        if (ObjectUtils.isEmpty(clientRequestDTO.getBilling_address().getIsDefault())) {
+            clientRequestDTO.getBilling_address().setIsDefault(false);
+        }
+
         return Address
                 .builder()
                 .cep(clientRequestDTO.getBilling_address().getCep())
@@ -33,18 +39,18 @@ public class AddressBuilder {
 
         List<Address> addressDTOList = new ArrayList<>();
 
-        for(DeliveryAddressDTO deliveryAddressDTO: clientRequestDTO.getDelivery_address()){
+        for (DeliveryAddressRequestDTO deliveryAddressRequestDTO : clientRequestDTO.getDelivery_address()) {
             Address build = Address
                     .builder()
-                    .cep(deliveryAddressDTO.getCep())
-                    .uf(deliveryAddressDTO.getUf())
-                    .bairro(deliveryAddressDTO.getNeighborhood())
-                    .cidade(deliveryAddressDTO.getCity())
+                    .cep(deliveryAddressRequestDTO.getCep())
+                    .uf(deliveryAddressRequestDTO.getUf())
+                    .bairro(deliveryAddressRequestDTO.getNeighborhood())
+                    .cidade(deliveryAddressRequestDTO.getCity())
                     .client(client)
-                    .complemento(deliveryAddressDTO.getComplement())
-                    .numero(deliveryAddressDTO.getNumber())
-                    .logradouro(deliveryAddressDTO.getStreet())
-                    .isDefault(deliveryAddressDTO.getIsDefault())
+                    .complemento(deliveryAddressRequestDTO.getComplement())
+                    .numero(deliveryAddressRequestDTO.getNumber())
+                    .logradouro(deliveryAddressRequestDTO.getStreet())
+                    .isDefault(deliveryAddressRequestDTO.getIsDefault())
                     .typeAddress(AddressTypeEnum.ENTREGA.name())
                     .build();
             addressDTOList.add(build);
