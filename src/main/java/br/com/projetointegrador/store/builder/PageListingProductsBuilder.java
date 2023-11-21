@@ -1,7 +1,7 @@
 package br.com.projetointegrador.store.builder;
 
 import br.com.projetointegrador.store.dto.response.ImageListingResponseDTO;
-import br.com.projetointegrador.store.dto.response.ListingProductMainImageResponseDTO;
+import br.com.projetointegrador.store.dto.response.product.ListingProductMainImageResponseDTO;
 import br.com.projetointegrador.store.dto.response.PageDTO;
 import br.com.projetointegrador.store.model.Image;
 import br.com.projetointegrador.store.model.Product;

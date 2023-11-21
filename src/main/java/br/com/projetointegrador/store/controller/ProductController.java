@@ -1,11 +1,10 @@
 package br.com.projetointegrador.store.controller;
 
 import br.com.projetointegrador.store.dto.request.AlterStockRequestDTO;
-import br.com.projetointegrador.store.dto.request.ImageRequestDTO;
 import br.com.projetointegrador.store.dto.request.ProductRequestDTO;
 import br.com.projetointegrador.store.dto.request.UpdateProductRequestDTO;
-import br.com.projetointegrador.store.dto.response.ListingProductMainImageResponseDTO;
-import br.com.projetointegrador.store.dto.response.ListingProductResponseDTO;
+import br.com.projetointegrador.store.dto.response.product.ListingProductMainImageResponseDTO;
+import br.com.projetointegrador.store.dto.response.product.ListingProductResponseDTO;
 import br.com.projetointegrador.store.dto.response.PageDTO;
 import br.com.projetointegrador.store.service.product.*;
 import br.com.projetointegrador.store.specification.FilterProducts;
@@ -15,12 +14,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.List;
 import java.util.UUID;
 
 @RestController

@@ -2,27 +2,19 @@ package br.com.projetointegrador.store.controller;
 
 import br.com.projetointegrador.store.dto.request.CepDTORequest;
 import br.com.projetointegrador.store.dto.response.*;
+import br.com.projetointegrador.store.dto.response.product.ListingProductMainImageResponseDTO;
 import br.com.projetointegrador.store.model.Image;
 import br.com.projetointegrador.store.model.Product;
 import br.com.projetointegrador.store.repository.ImageRepository;
 import br.com.projetointegrador.store.repository.ProductRepository;
 import br.com.projetointegrador.store.service.client.FindCepService;
 import br.com.projetointegrador.store.service.product.ListingProductsService;
-import br.com.projetointegrador.store.service.user.ListingUsersService;
-import br.com.projetointegrador.store.specification.ControllerFilter;
 import br.com.projetointegrador.store.specification.FilterProducts;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Base64;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController

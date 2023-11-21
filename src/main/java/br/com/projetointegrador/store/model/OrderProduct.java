@@ -27,4 +27,9 @@ public class OrderProduct {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    @PrePersist
+    private void beforePersist() {
+        this.id = UUID.randomUUID();
+    }
 }
