@@ -31,7 +31,9 @@ public class UpdateProductService {
             throw new Exception("Request vazia!");
         }
 
-        updateProductRequestDTO.setRole("Administrador");
+        if(ObjectUtils.isEmpty(updateProductRequestDTO.getRole())){
+            updateProductRequestDTO.setRole("Administrador");
+        }
 
         if (!UserRole.ADMIN.getName().equals(updateProductRequestDTO.getRole())) {
             throw new Exception("Somente administradores podem alterar os produtos!");
@@ -194,9 +196,7 @@ public class UpdateProductService {
             listaDeImagens.get(0).setIsDefault(true);
         }
 
-
         list.forEach(imageRepository::deleteById);
-
         imageRepository.saveAll(listaDeImagens);
         for(UpdateProductImage i: updateProductRequestDTO.getImagesToDelete()){
             String pathImage = productToSave.getId().toString() +"/"+ i.getPath();
