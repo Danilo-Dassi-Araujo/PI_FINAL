@@ -57,7 +57,6 @@ class UpdateProductServiceTest {
         );
     }
 
-
     @DisplayName("Testando update com a request vazia")
     @Test
     void testUpdateProductEmptyRequest() {
@@ -141,6 +140,7 @@ class UpdateProductServiceTest {
         Optional<Product> optionalProduct = generateProductOptional();
         UpdateProductRequestDTO updateProductRequestDTO = generateUpdateProductRequestWithNewImagesDTO();
         List<Image> imageList = generateListImages();
+
         when(productRepository.save(any())).thenReturn(product);
         when(productRepository.findById(any())).thenReturn(optionalProduct);
         when(imageRepository.findAllByProductId(any())).thenReturn(imageList);
@@ -162,6 +162,7 @@ class UpdateProductServiceTest {
         UpdateProductRequestDTO updateProductRequestDTO = generateUpdateProductRequestWithNewImagesDTO();
         updateProductRequestDTO.getNewImages().get(0).setIsDefault(Boolean.FALSE);
         List<Image> imageList = generateListImages();
+
         when(productRepository.save(any())).thenReturn(product);
         when(productRepository.findById(any())).thenReturn(optionalProduct);
         when(imageRepository.findAllByProductId(any())).thenReturn(imageList);
@@ -182,6 +183,7 @@ class UpdateProductServiceTest {
         Optional<Product> optionalProduct = generateProductOptional();
         UpdateProductRequestDTO updateProductRequestDTO = generateUpdateProductRequestWithImagesDTO();
         List<Image> imageList = generateListImages();
+
         when(productRepository.save(any())).thenReturn(product);
         when(productRepository.findById(any())).thenReturn(optionalProduct);
         when(imageRepository.findAllByProductId(any())).thenReturn(imageList);

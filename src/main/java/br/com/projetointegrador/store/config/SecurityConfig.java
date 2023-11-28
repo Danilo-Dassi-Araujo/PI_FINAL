@@ -43,6 +43,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/client").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/client/update/{id}").permitAll()
                 .requestMatchers(HttpMethod.POST, "/order/register").permitAll()
+                .requestMatchers(HttpMethod.GET, "/order/myOrders/{uuid}").permitAll()
                 .requestMatchers(HttpMethod.GET, "/info/statusOrder").permitAll()
                 .requestMatchers(HttpMethod.GET, "/info/shippings").permitAll()
                 .requestMatchers(HttpMethod.GET, "/info/paymentsMethods").permitAll()

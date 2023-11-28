@@ -1,5 +1,6 @@
 package br.com.projetointegrador.store.enums;
 
+import br.com.projetointegrador.store.dto.response.order.PaymentMethodDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,4 +13,15 @@ public enum PaymentsMethodsEnum {
 
     private final Integer id;
     private final String paymentMethod;
+
+
+    public static PaymentsMethodsEnum getById(int id) {
+        for (PaymentsMethodsEnum paymentMethod : PaymentsMethodsEnum.values()) {
+            if (paymentMethod.getId() == id) {
+                return paymentMethod;
+            }
+        }
+        throw new IllegalArgumentException("ID inválido: " + id);
+    }
+
 }

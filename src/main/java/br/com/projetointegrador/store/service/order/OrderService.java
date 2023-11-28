@@ -35,7 +35,6 @@ public class OrderService {
         Client clientToOrder = clientRepository.findById(orderRequestDTO.getUser_id()).orElse(null);
         List<CardPayments> cardPaymentsList = cardPaymentsRepository.findAll();
 
-
         List<CardPayments> list = cardPaymentsList.stream().filter(card -> {
             assert clientToOrder != null;
             return clientToOrder.getId().equals(card.getId());

@@ -9,6 +9,7 @@ import br.com.projetointegrador.store.model.Image;
 import br.com.projetointegrador.store.model.Product;
 import br.com.projetointegrador.store.repository.ImageRepository;
 import br.com.projetointegrador.store.repository.ProductRepository;
+import br.com.projetointegrador.store.utils.ValidatorUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -30,6 +31,8 @@ public class UpdateProductService {
         if (ObjectUtils.isEmpty(updateProductRequestDTO)) {
             throw new Exception("Request vazia!");
         }
+
+        ValidatorUtils.validateUpdateProduct(updateProductRequestDTO);
 
         if(ObjectUtils.isEmpty(updateProductRequestDTO.getRole())){
             updateProductRequestDTO.setRole("Administrador");
