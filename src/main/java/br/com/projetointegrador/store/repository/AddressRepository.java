@@ -9,4 +9,7 @@ import java.util.UUID;
 
 @Repository
 public interface AddressRepository extends JpaRepository<Address, UUID> {
+
+    List<Address> findAllByClientId(UUID uuid);
+
 }
