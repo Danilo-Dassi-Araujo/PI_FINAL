@@ -1,5 +1,6 @@
 package br.com.projetointegrador.store.service.info;
 
+import br.com.projetointegrador.store.dto.response.order.PaymentMethodDTO;
 import br.com.projetointegrador.store.enums.PaymentsMethodsEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,12 +13,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PaymentsMethodsinfoService {
 
-    public List<String> getPaymentsMethods() {
-        List<String> paymentsMethodsList = new ArrayList<>();
+    public List<PaymentMethodDTO> getPaymentsMethods() {
+        List<PaymentMethodDTO> paymentsMethodsList = new ArrayList<>();
 
         Arrays.stream(PaymentsMethodsEnum.values())
                 .toList()
-                .forEach(e -> paymentsMethodsList.add(e.getPaymentMethod()));
+                .forEach(e -> paymentsMethodsList.add(PaymentMethodDTO.builder().name(e.getPaymentMethod()).id(e.getId()).build()));
 
         return paymentsMethodsList;
     }

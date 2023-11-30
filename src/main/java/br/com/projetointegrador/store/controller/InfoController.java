@@ -3,6 +3,7 @@ package br.com.projetointegrador.store.controller;
 
 import br.com.projetointegrador.store.dto.response.ShippingsInfoResponseDTO;
 import br.com.projetointegrador.store.dto.response.StatusOrderInfoResponseDTO;
+import br.com.projetointegrador.store.dto.response.order.PaymentMethodDTO;
 import br.com.projetointegrador.store.service.info.PaymentsMethodsinfoService;
 import br.com.projetointegrador.store.service.info.ShippingsInfoService;
 import br.com.projetointegrador.store.service.info.StatusOrderInfoService;
@@ -33,7 +34,7 @@ public class InfoController {
     }
 
     @GetMapping("/paymentsMethods")
-    public List<String> getPaymentsMethods() {
+    public List<PaymentMethodDTO> getPaymentsMethods() {
         return paymentsMethodsinfoService.getPaymentsMethods();
     }
 
