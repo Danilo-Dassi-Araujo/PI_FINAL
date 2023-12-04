@@ -24,4 +24,13 @@ public enum ShippingsEnum {
         }
         throw new IllegalArgumentException("ID inválido: " + id);
     }
+
+    public static ShippingsEnum getByIdShipping(Integer id) {
+        for (ShippingsEnum status : ShippingsEnum.values()) {
+            if (status.getId().equals(id)) {
+                return status;
+            }
+        }
+        throw new IllegalArgumentException("ID inválido: " + id);
+    }
 }

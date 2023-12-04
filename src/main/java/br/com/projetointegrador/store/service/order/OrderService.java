@@ -48,14 +48,26 @@ public class OrderService {
         Address addressToOrder = addressRepository.findById(orderRequestDTO.getDelivery_address_id()).orElse(null);
         assert idClienteLogado != null;
         Client clientToOrder = clientRepository.findById(idClienteLogado).orElse(null);
-        List<CardPayments> cardPaymentsList = cardPaymentsRepository.findAll();
+//        List<CardPayments> cardPaymentsList = cardPaymentsRepository.findAll();
+//
+//        List<CardPayments> list = cardPaymentsList.stream().filter(card -> {
+//            assert clientToOrder != null;
+//            return clientToOrder.getId().equals(card.getId());
+//        }).toList();
 
-        List<CardPayments> list = cardPaymentsList.stream().filter(card -> {
-            assert clientToOrder != null;
-            return clientToOrder.getId().equals(card.getId());
-        }).toList();
+        CardPayments cardPayments = CardPayments
+                .builder()
+                .name(orderRequestDTO.getCard_payment().getName())
+                .code(orderRequestDTO.getCard_payment().getCode())
+                .expireDate(orderRequestDTO.getCard_payment().getExpire_date())
+                .portions(orderRequestDTO.getCard_payment().getPortions())
+                .cardNumber(orderRequestDTO.getCard_payment().getCard_number())
+                .portionsValue(null)
+                .build();
 
-        Order orderToSave = OrderBuilder.buildFrom(orderRequestDTO, addressToOrder, clientToOrder, list);
+        cardPaymentsRepository.save(cardPayments);
+
+        Order orderToSave = OrderBuilder.buildFrom(orderRequestDTO, addressToOrder, clientToOrder, cardPayments);
 
         Order savedOrder = orderRepository.save(orderToSave);
 

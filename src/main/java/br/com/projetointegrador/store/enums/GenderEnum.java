@@ -23,4 +23,13 @@ public enum GenderEnum {
         throw new IllegalArgumentException("ID inválido: " + id);
     }
 
+    public static String getByName(String name) {
+        for (GenderEnum paymentMethod : GenderEnum.values()) {
+            if (paymentMethod.getGender().equals(name)) {
+                return paymentMethod.getId();
+            }
+        }
+        throw new IllegalArgumentException("ID inválido: " + name);
+    }
+
 }

@@ -73,6 +73,8 @@ public class GetOrderByCodeService {
                         .default_image(imageDefault)
                         .build();
 
+
+
                 OrderProductDTO productsResponse = OrderProductDTO
                         .builder()
                         .product(productToResponse)
@@ -81,6 +83,14 @@ public class GetOrderByCodeService {
                 listProducts.add(productsResponse);
             }
         }
+        ShippingsEnum shipping = ShippingsEnum.getByIdShipping(order.getShippingId());
+        ShippingDTO shippingResponse = ShippingDTO
+                .builder()
+                .id(shipping.getId())
+                .name(shipping.getName())
+                .price(shipping.getPrice())
+                .time(shipping.getTime())
+                .build();
 
         String statusFront = StatusOrderEnum.getByIdForFront(order.getStatusId());
 
@@ -100,6 +110,7 @@ public class GetOrderByCodeService {
                 .date(order.getDate())
                 .price(valorFrete)
                 .products(listProducts)
+                .shipping(shippingResponse)
                 .build();
     }
 

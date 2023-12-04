@@ -1,12 +1,9 @@
 package br.com.projetointegrador.store.controller;
 
 import br.com.projetointegrador.store.dto.request.order.OrderRequestDTO;
-import br.com.projetointegrador.store.dto.response.order.AllMyOrdersResponseDTO;
-import br.com.projetointegrador.store.dto.response.order.OrderResponseCodeDTO;
-import br.com.projetointegrador.store.dto.response.order.OrderStringResponseDTO;
-import br.com.projetointegrador.store.service.order.GetOrderByCodeService;
-import br.com.projetointegrador.store.service.order.ListingMyOrdersService;
-import br.com.projetointegrador.store.service.order.OrderService;
+import br.com.projetointegrador.store.dto.response.order.*;
+import br.com.projetointegrador.store.model.Order;
+import br.com.projetointegrador.store.service.order.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +18,9 @@ public class OrderController {
     private final OrderService orderService;
     private final ListingMyOrdersService listingMyOrdersService;
     private final GetOrderByCodeService getOrderByCodeService;
+    private final ListingAllOrdersService listingAllOrdersService;
+    private final ChangeStatusOrderService changeStatusOrderService;
+    private final GetOrderStatusService getOrderStatusService;
 
     @PostMapping("/register")
     public OrderStringResponseDTO registerOrder(@RequestBody OrderRequestDTO orderRequestDTO) throws Exception {
@@ -36,4 +36,20 @@ public class OrderController {
     public OrderResponseCodeDTO listingOrderbyCode(@PathVariable String orderCode) {
         return getOrderByCodeService.getByOrderCode(orderCode);
     }
+
+    @GetMapping("/listingAllOrders")
+    public List<AllMyOrdersResponseDTO> listingAllOrders(){
+        return listingAllOrdersService.listingAllOrders();
+    }
+
+    @GetMapping("/getOrderStatus/{uuid}")
+    public StatusOrderIdResponseDTO getOrderStatus(@PathVariable UUID uuid) throws Exception {
+        return getOrderStatusService.getOrderStatus(uuid);
+    }
+
+    @PutMapping("/changeStatusOrder/{uuid}")
+    public void changeStatusOrder(@PathVariable UUID uuid, @RequestBody OrderStatusRequestDTO status_id) throws Exception {
+       changeStatusOrderService.changeStatusOrder(uuid,status_id);
+    }
+
 }

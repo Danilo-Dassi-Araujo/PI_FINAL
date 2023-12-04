@@ -16,7 +16,7 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class OrderBuilder {
 
-    public static Order buildFrom(OrderRequestDTO orderRequestDTO, Address addressToOrder, Client clientToOrder, List<CardPayments> cardPayments) {
+    public static Order buildFrom(OrderRequestDTO orderRequestDTO, Address addressToOrder, Client clientToOrder, CardPayments cardPayments) {
 
         return Order
                 .builder()
@@ -25,7 +25,7 @@ public class OrderBuilder {
                 .paymentMethodId(orderRequestDTO.getPayment_method_id())
                 .shippingId(orderRequestDTO.getShipping_id())
                 .value(orderRequestDTO.getTotal_value())
-                .cardPayment(ObjectUtils.isEmpty(cardPayments) ? null : cardPayments.get(0))
+                .cardPayment(ObjectUtils.isEmpty(cardPayments) ? null : cardPayments)
                 .date(LocalDate.now())
                 .statusId(StatusOrderEnum.AGUARDANDO_PAGAMENTO.getId())
                 .orderCode(generateOrderCode())

@@ -3,14 +3,19 @@ package br.com.projetointegrador.store.service.order;
 import br.com.projetointegrador.store.dto.response.order.*;
 import br.com.projetointegrador.store.enums.PaymentsMethodsEnum;
 import br.com.projetointegrador.store.enums.StatusOrderEnum;
+import br.com.projetointegrador.store.model.Client;
 import br.com.projetointegrador.store.model.Order;
 import br.com.projetointegrador.store.model.OrderProduct;
+import br.com.projetointegrador.store.model.User;
+import br.com.projetointegrador.store.repository.ClientRepository;
 import br.com.projetointegrador.store.repository.OrderProductRepository;
 import br.com.projetointegrador.store.repository.OrderRepository;
+import br.com.projetointegrador.store.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,14 +29,27 @@ public class ListingMyOrdersService {
 
     private final OrderRepository orderRepository;
     private final OrderProductRepository orderProductRepository;
+    private final UserRepository userRepository;
+    private final ClientRepository clientRepository;
 
     public List<AllMyOrdersResponseDTO> getAllMyOrders(UUID uuid) {
         List<Order> allOrders = orderRepository.findAll();
 
+        User usuarioLogado = userRepository.findById(uuid).orElse(null);
+
+        UUID idClienteLogado;
+        if(!ObjectUtils.isEmpty(usuarioLogado)){
+            String email = usuarioLogado.getEmail();
+            Client clientByEmail = clientRepository.findByEmail(email);
+            idClienteLogado = clientByEmail.getId();
+        } else {
+            idClienteLogado = null;
+        }
+
         if (!allOrders.isEmpty()) {
             List<Order> allMyOrders = allOrders
                     .stream()
-                    .filter(order -> order.getCliente().getId().equals(uuid))
+                    .filter(order -> order.getCliente().getId().equals(idClienteLogado))
                     .toList();
 
             List<AllMyOrdersResponseDTO> listaResponse = new ArrayList<>();
@@ -66,7 +84,7 @@ public class ListingMyOrdersService {
                             .id(order.getCardPayment().getId())
                             .card_number(order.getCardPayment().getCardNumber())
                             .code(order.getCardPayment().getCode())
-                            .expire_date(order.getCardPayment().getExpireDate().toString())
+                            .expire_date(LocalDate.now().toString())
                             .portion_value(order.getCardPayment().getPortionsValue())
                             .portions(order.getCardPayment().getPortions())
                             .build();

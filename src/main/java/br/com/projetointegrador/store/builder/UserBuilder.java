@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 public class UserBuilder {
@@ -66,10 +67,10 @@ public class UserBuilder {
                 .createdAt(LocalDate.now())
                 .build();
     }
-    public static User buildFrom(Client request){
+    public static User buildFrom(Client request, UUID userId){
         return User
                 .builder()
-                .id(request.getId())
+                .id(userId)
                 .email(request.getEmail())
                 .name(request.getNomeCompleto())
                 .role(UserRole.CLIENT)

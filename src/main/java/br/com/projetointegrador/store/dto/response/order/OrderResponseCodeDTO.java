@@ -31,5 +31,6 @@ public class OrderResponseCodeDTO {
     private Double price;
     private PaymentMethodDTO paymentMethod;
     private List<OrderProductDTO> products;
+    private ShippingDTO shipping;
 
 }
