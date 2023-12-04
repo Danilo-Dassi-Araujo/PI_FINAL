@@ -2,6 +2,9 @@ package br.com.projetointegrador.store.dto.response.order;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.util.UUID;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -9,13 +12,13 @@ import lombok.*;
 @Setter
 public class ProductDTO {
 
-    private int id;
+    private UUID id;
     private String name;
-    private String rating;
+    private double rating;
     private String description;
-    private double price;
-    private int stock;
-    private int isActive;
+    private BigDecimal price;
+    private String stock;
+    private Boolean isActive;
     private DefaultImageDTO default_image;
 
 }

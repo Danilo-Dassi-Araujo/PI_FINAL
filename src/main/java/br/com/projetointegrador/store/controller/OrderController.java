@@ -3,6 +3,7 @@ package br.com.projetointegrador.store.controller;
 import br.com.projetointegrador.store.dto.request.order.OrderRequestDTO;
 import br.com.projetointegrador.store.dto.response.order.AllMyOrdersResponseDTO;
 import br.com.projetointegrador.store.dto.response.order.OrderResponseCodeDTO;
+import br.com.projetointegrador.store.dto.response.order.OrderStringResponseDTO;
 import br.com.projetointegrador.store.service.order.GetOrderByCodeService;
 import br.com.projetointegrador.store.service.order.ListingMyOrdersService;
 import br.com.projetointegrador.store.service.order.OrderService;
@@ -22,8 +23,8 @@ public class OrderController {
     private final GetOrderByCodeService getOrderByCodeService;
 
     @PostMapping("/register")
-    public void registerOrder(@RequestBody OrderRequestDTO orderRequestDTO) throws Exception {
-        orderService.registerOrder(orderRequestDTO);
+    public OrderStringResponseDTO registerOrder(@RequestBody OrderRequestDTO orderRequestDTO) throws Exception {
+        return orderService.registerOrder(orderRequestDTO);
     }
 
     @GetMapping("/myOrders/{uuid}")

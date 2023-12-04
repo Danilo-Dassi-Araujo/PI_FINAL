@@ -40,7 +40,9 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/auth").permitAll()
                 .requestMatchers(HttpMethod.GET, "/auth/teste").permitAll()
                 .requestMatchers(HttpMethod.POST, "/users").permitAll()
-                .requestMatchers(HttpMethod.POST, "/client").permitAll()
+                .requestMatchers(HttpMethod.GET, "/users/getById/{id}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/getImage/{id}/{image}").permitAll()
+                .requestMatchers(HttpMethod.POST, "/client/register").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/client/update/{id}").permitAll()
                 .requestMatchers(HttpMethod.POST, "/order/register").permitAll()
                 .requestMatchers(HttpMethod.GET, "/order/myOrders/{uuid}").permitAll()
@@ -50,11 +52,18 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/info/statusOrder").permitAll()
                 .requestMatchers(HttpMethod.GET, "/info/shippings").permitAll()
                 .requestMatchers(HttpMethod.GET, "/info/paymentsMethods").permitAll()
+                .requestMatchers(HttpMethod.GET, "/info/roles").permitAll()
+                .requestMatchers(HttpMethod.GET, "/info/genders").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/endereco/newDeliveryAddress/{id}").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/endereco/newDefaultAddress/{id}/{idAddress}").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/endereco/changeDeliveryAddressStatus/{id}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/endereco/myAddress/{uuid}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/endereco/defaultAddress/{uuid}").permitAll()
                 .requestMatchers(HttpMethod.GET, "/products", "/products/{id}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/products/listingAllProducts").permitAll()
+                .requestMatchers(HttpMethod.GET, "/products/listingProduct/{id}").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/products", "/editProduct/{id}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/home/listingProducts").permitAll()
                 .requestMatchers(HttpMethod.GET, "/products", "/products/getImage/{id}/{image}").permitAll()
                 .requestMatchers(HttpMethod.DELETE, "/products/{id}").hasAnyRole(UserRole.ADMIN.name())
                 .anyRequest().authenticated());
@@ -73,7 +82,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         var configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000","http://localhost:3030"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("*"));
 

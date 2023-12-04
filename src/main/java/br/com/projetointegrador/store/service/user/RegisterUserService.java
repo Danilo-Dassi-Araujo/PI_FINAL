@@ -21,12 +21,6 @@ public class RegisterUserService {
     private final PasswordEncoder passwordEncoder;
 
     public RegisterDTOResponse registerUser(UserRequestDTO userRequestDTO) throws Exception {
-        ValidatorUtils.validateRequest(userRequestDTO);
-        boolean cpf = ValidaCpf.isCPF(userRequestDTO.getCpf());
-
-        if (Boolean.FALSE.equals(cpf)) {
-            throw new Exception("CPF inválido");
-        }
 
         User emailValidate = userRepository.findByEmail(userRequestDTO.getEmail()).orElse(null);
         User cpfValidate = userRepository.findByCpf(userRequestDTO.getCpf());

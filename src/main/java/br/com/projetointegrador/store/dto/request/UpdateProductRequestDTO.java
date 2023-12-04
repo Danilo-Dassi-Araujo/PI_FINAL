@@ -16,7 +16,7 @@ public class UpdateProductRequestDTO {
     private UUID id;
     private String name;
     private String description;
-    private Double rate;
+    private Double rating;
     private BigDecimal price;
     private Integer stock;
     private String role;

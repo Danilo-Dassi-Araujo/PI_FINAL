@@ -32,6 +32,7 @@ public class AddressBuilder {
                 .logradouro(clientRequestDTO.getBilling_address().getStreet())
                 .isDefault(clientRequestDTO.getBilling_address().getIsDefault())
                 .typeAddress(AddressTypeEnum.FATURAMENTO.name())
+                .isActive(Boolean.TRUE)
                 .build();
     }
 
@@ -52,6 +53,7 @@ public class AddressBuilder {
                     .logradouro(deliveryAddressRequestDTO.getStreet())
                     .isDefault(deliveryAddressRequestDTO.getIsDefault())
                     .typeAddress(AddressTypeEnum.ENTREGA.name())
+                    .isActive(Boolean.TRUE)
                     .build();
             addressDTOList.add(build);
         }

@@ -11,6 +11,6 @@ import java.util.UUID;
 @Setter
 public class OrderProductRequestDTO {
 
-    private UUID product_id;
-    private String quantity;
+    private UUID id;
+    private String counter;
 }

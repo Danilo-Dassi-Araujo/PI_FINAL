@@ -5,11 +5,9 @@ import br.com.projetointegrador.store.dto.request.UserRequestDTO;
 import br.com.projetointegrador.store.dto.response.ListingDTOResponse;
 import br.com.projetointegrador.store.dto.response.RegisterDTOResponse;
 import br.com.projetointegrador.store.dto.response.UpdateDTOResponse;
+import br.com.projetointegrador.store.model.User;
 import br.com.projetointegrador.store.service.UserService;
-import br.com.projetointegrador.store.service.user.InactiveAndActiveUserService;
-import br.com.projetointegrador.store.service.user.ListingUsersService;
-import br.com.projetointegrador.store.service.user.RegisterUserService;
-import br.com.projetointegrador.store.service.user.UpdateUserService;
+import br.com.projetointegrador.store.service.user.*;
 import br.com.projetointegrador.store.specification.ControllerFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -28,11 +27,19 @@ public class UserController {
     private final RegisterUserService registerUserService;
     private final InactiveAndActiveUserService inactiveAndActiveUserService;
     private final UpdateUserService updateUserService;
+    private final GetUserService getUserService;
+
 
     @GetMapping("/listingUser")
     public ResponseEntity<List<ListingDTOResponse>> getFilteredUsers(ControllerFilter controllerFilter) throws Exception {
         List<ListingDTOResponse> allUsers = listingUsersService.getAllUsers(controllerFilter, controllerFilter.getRole());
         return ResponseEntity.ok().body(allUsers);
+    }
+
+    @GetMapping("/getById/{id}")
+    public User getFilteredUsers(@PathVariable UUID id) throws Exception {
+        User user = getUserService.getUser(id);
+        return ResponseEntity.ok().body(user).getBody();
     }
 
     @PostMapping("/register")

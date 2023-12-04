@@ -2,6 +2,8 @@ package br.com.projetointegrador.store.dto.response;
 
 import lombok.*;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Builder
@@ -9,6 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 public class ListingDTOResponse {
 
+    private UUID id;
     private String name;
     private String email;
     private String cpf;

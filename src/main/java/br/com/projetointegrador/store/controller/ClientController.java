@@ -17,7 +17,7 @@ public class ClientController {
     private final RegisterClientService registerClientService;
     private final UpdateClientService updateClientService;
 
-    @PostMapping
+    @PostMapping("/register")
     public void createClient(@RequestBody ClientRequestDTO clientRequestDTO) throws Exception {
         registerClientService.registerClient(clientRequestDTO);
     }

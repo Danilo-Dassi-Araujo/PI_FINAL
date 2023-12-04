@@ -21,4 +21,13 @@ public enum UserRole {
         return List.of(new SimpleGrantedAuthority("ROLE_".concat(this.name())));
     }
 
+    public static UserRole getById(Integer id) {
+        for (UserRole role : UserRole.values()) {
+            if (role.id.equals(id)) {
+                return role;
+            }
+        }
+        throw new IllegalArgumentException("ID inválido: " + id);
+    }
+
 }

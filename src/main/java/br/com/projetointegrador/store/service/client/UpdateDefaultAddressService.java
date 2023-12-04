@@ -1,7 +1,11 @@
 package br.com.projetointegrador.store.service.client;
 
 import br.com.projetointegrador.store.model.Address;
+import br.com.projetointegrador.store.model.Client;
+import br.com.projetointegrador.store.model.User;
 import br.com.projetointegrador.store.repository.AddressRepository;
+import br.com.projetointegrador.store.repository.ClientRepository;
+import br.com.projetointegrador.store.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -15,10 +19,23 @@ import java.util.stream.Collectors;
 public class UpdateDefaultAddressService {
 
     private final AddressRepository addressRepository;
+    private final ClientRepository clientRepository;
+    private final UserRepository userRepository;
 
     public void updateDefaultAddress(UUID id, UUID idAddress) throws Exception {
 
-        if(ObjectUtils.isEmpty(id)){
+        User usuarioLogado = userRepository.findById(id).orElse(null);
+
+        UUID idClienteLogado;
+        if(!ObjectUtils.isEmpty(usuarioLogado)){
+            String email = usuarioLogado.getEmail();
+            Client clientByEmail = clientRepository.findByEmail(email);
+            idClienteLogado = clientByEmail.getId();
+        } else {
+            idClienteLogado = null;
+        }
+
+        if(ObjectUtils.isEmpty(usuarioLogado)){
             throw new Exception("ID de cliente está vazio!");
         }
         if(ObjectUtils.isEmpty(idAddress)){
@@ -27,10 +44,10 @@ public class UpdateDefaultAddressService {
 
         List<Address> allByIdCliente = addressRepository.findAll();
 
-        List<Address> listAddress = allByIdCliente.stream().filter(address -> id.equals(address.getClient().getId())).toList();
+        List<Address> listAddress = allByIdCliente.stream().filter(address -> idClienteLogado.equals(address.getClient().getId())).toList();
 
         if(ObjectUtils.isEmpty(listAddress)){
-            throw new Exception("Nenhum endereço foi encontrado para o id: " + id);
+            throw new Exception("Nenhum endereço foi encontrado para o id: " + usuarioLogado.getId());
         }
 
         listAddress.forEach(e -> e.setIsDefault(false));

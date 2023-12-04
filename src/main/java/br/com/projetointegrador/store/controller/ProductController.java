@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -31,6 +32,7 @@ public class ProductController {
     private final InactiveAndActiveProductService inactiveAndActiveProductService;
     private final RegisterProductService registerProductService;
     private final GetProduct getProduct;
+    private final ListingProductsNoPagedService listingProductsNoPagedService;
 
     @PostMapping("/createProduct")
     public ResponseEntity<Void> createProduct(@RequestBody ProductRequestDTO request) throws Exception {
@@ -64,7 +66,13 @@ public class ProductController {
         return ResponseEntity.ok().body(listingProductResponseDTOPageDTO).getBody();
     }
 
-    @GetMapping("listingProduct/{id}")
+    @GetMapping("/listingAllProducts")
+    public List<ListingProductMainImageResponseDTO>listingAllProducts() throws Exception {
+        List<ListingProductMainImageResponseDTO> listingProductMainImageResponseDTOS = listingProductsNoPagedService.listingAllProducts();
+        return ResponseEntity.ok().body(listingProductMainImageResponseDTOS).getBody();
+    }
+
+    @GetMapping("/listingProduct/{id}")
     public ResponseEntity<ListingProductResponseDTO> listingProduct(@PathVariable UUID id) throws Exception {
         return ResponseEntity.ok().body(getProduct.getProduct(id));
     }

@@ -15,4 +15,13 @@ public enum ShippingsEnum {
     private String name;
     private String time;
     private Double price;
+
+    public static Double getByIdForFront(Integer id) {
+        for (ShippingsEnum status : ShippingsEnum.values()) {
+            if (status.getId().equals(id)) {
+                return status.getPrice();
+            }
+        }
+        throw new IllegalArgumentException("ID inválido: " + id);
+    }
 }

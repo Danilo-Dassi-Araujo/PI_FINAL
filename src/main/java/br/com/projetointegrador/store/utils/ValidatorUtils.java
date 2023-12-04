@@ -3,7 +3,6 @@ package br.com.projetointegrador.store.utils;
 import br.com.projetointegrador.store.dto.request.IdDTORequest;
 import br.com.projetointegrador.store.dto.request.ProductRequestDTO;
 import br.com.projetointegrador.store.dto.request.UpdateProductRequestDTO;
-import br.com.projetointegrador.store.dto.request.UserRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -13,36 +12,6 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 @Service
 public class ValidatorUtils {
-
-    public static void validateRequest(UserRequestDTO requestDTO) throws Exception {
-        if(ObjectUtils.isEmpty(requestDTO)){
-            throw new Exception("A request está vazia!");
-        }
-
-        if(ObjectUtils.isEmpty(requestDTO.getEmail())){
-            throw new Exception("O email está vazio!");
-        }
-
-        if(ObjectUtils.isEmpty(requestDTO.getName())){
-            throw new Exception("O nome está vazio!");
-        }
-
-        if(ObjectUtils.isEmpty(requestDTO.getCpf())){
-            throw new Exception("O cpf está vazio!");
-        }
-
-        if(ObjectUtils.isEmpty(requestDTO.getPassword())){
-            throw new Exception("O senha está vazia!");
-        }
-
-        if(ObjectUtils.isEmpty(requestDTO.getPasswordConfirmation())){
-            throw new Exception("O confirmação de senha está vazia!");
-        }
-
-        if(!requestDTO.getPassword().equals(requestDTO.getPasswordConfirmation())){
-            throw new Exception("As senhas não estão iguais!");
-        }
-    }
 
     public static void validateProduct(ProductRequestDTO productRequestDTO) throws Exception {
         if (ObjectUtils.isEmpty(productRequestDTO.getName())) {
@@ -63,10 +32,6 @@ public class ValidatorUtils {
 
         if(ObjectUtils.isEmpty(productRequestDTO.getPrice())){
             throw new Exception("Preço do produto está vazio!");
-        }
-
-        if(productRequestDTO.getPrice().compareTo(BigDecimal.ZERO) < 0){
-            throw new Exception("Preço não pode ser menor que 0.");
         }
 
         if (0.5 > productRequestDTO.getRating() || productRequestDTO.getRating() > 5) {
@@ -108,8 +73,8 @@ public class ValidatorUtils {
             throw new Exception("Preço não pode ser menor que 0.");
         }
 
-        if (0.5 > updateProductRequestDTO.getRate() || updateProductRequestDTO.getRate() > 5) {
-            throw new Exception("Avaliação: " + updateProductRequestDTO.getRate() + " está fora do range de 0.5 - 5");
+        if (0.5 > updateProductRequestDTO.getRating() || updateProductRequestDTO.getRating() > 5) {
+            throw new Exception("Avaliação: " + updateProductRequestDTO.getRating() + " está fora do range de 0.5 - 5");
         }
 
         if(ObjectUtils.isEmpty(updateProductRequestDTO.getStock())){

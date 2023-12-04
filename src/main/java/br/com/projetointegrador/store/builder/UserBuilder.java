@@ -7,6 +7,7 @@ import br.com.projetointegrador.store.enums.UserRole;
 import br.com.projetointegrador.store.model.Client;
 import br.com.projetointegrador.store.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDate;
 
@@ -47,20 +48,20 @@ public class UserBuilder {
                 .name(request.getName())
                 .role(request.getRole())
                 .cpf(cpf)
-                .password(passwordEncripted)
+                .password(ObjectUtils.isEmpty(passwordEncripted) ? user.getPassword() : passwordEncripted)
                 .isActive(Boolean.TRUE)
                 .createdAt(user.getCreatedAt())
                 .build();
     }
 
-    public static User buildFrom(ClientRequestDTO request){
+    public static User buildFrom(ClientRequestDTO request, String password){
         return User
                 .builder()
                 .email(request.getEmail())
                 .name(request.getFullname())
                 .role(UserRole.CLIENT)
                 .cpf(request.getCpf())
-                .password(request.getPassword())
+                .password(password)
                 .isActive(Boolean.TRUE)
                 .createdAt(LocalDate.now())
                 .build();

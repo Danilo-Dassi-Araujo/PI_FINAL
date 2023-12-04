@@ -34,7 +34,7 @@ public class UpdateProductService {
 
         ValidatorUtils.validateUpdateProduct(updateProductRequestDTO);
 
-        if(ObjectUtils.isEmpty(updateProductRequestDTO.getRole())){
+        if (ObjectUtils.isEmpty(updateProductRequestDTO.getRole())) {
             updateProductRequestDTO.setRole("Administrador");
         }
 
@@ -52,12 +52,11 @@ public class UpdateProductService {
 
         Product productToSave = productRepository.save(updateProductToSave);
 
+
+        imagesRest(updateProductRequestDTO, productToSave);
+
         if (!ObjectUtils.isEmpty(updateProductRequestDTO.getNewImages())) {
             imagesToSave(updateProductRequestDTO, productToSave);
-        }
-
-        if (!ObjectUtils.isEmpty(updateProductRequestDTO.getImages())) {
-            imagesRest(updateProductRequestDTO, productToSave);
         }
 
         if (!ObjectUtils.isEmpty(updateProductRequestDTO.getImagesToDelete())) {
@@ -134,46 +133,21 @@ public class UpdateProductService {
             List<Image> allByProductId = imageRepository.findAllByProductId(productToSave);
             allByProductId
                     .forEach(image -> image.setIsDefault(false));
-
-            for (UpdateProductImage image : updateProductRequestDTO.getImages()) {
-                String path = imageSave.saveImage(image.getPath(), productToSave.getId().toString());
-
-                Image imagem = Image
-                        .builder()
-                        .path(path)
-                        .isDefault(image.getIsDefault())
-                        .productId(productToSave)
-                        .build();
-
-                if (!ObjectUtils.isEmpty(image.getId())) {
-                    imagem.setId(imagem.getId());
+            for (Image image : allByProductId) {
+                if (image.getId().equals(imagesIsDefaultTrue.get(0).getId())) {
+                    image.setIsDefault(Boolean.TRUE);
                 }
-
-                allByProductId.add(imagem);
             }
+
             imageRepository.saveAll(allByProductId);
         }
 
         if (imagesIsDefaultTrue.isEmpty()) {
 
-            List<Image> listImage = new ArrayList<>();
-
-            for (UpdateProductImage image : updateProductRequestDTO.getImages()) {
-                String path = imageSave.saveImage(image.getPath(), productToSave.getId().toString());
-
-                Image imagem = Image
-                        .builder()
-                        .path(path)
-                        .isDefault(image.getIsDefault())
-                        .productId(productToSave)
-                        .build();
-
-                if (!ObjectUtils.isEmpty(image.getId())) {
-                    imagem.setId(imagem.getId());
-                }
-                listImage.add(imagem);
-            }
-            imageRepository.saveAll(listImage);
+            List<Image> allByProductId = imageRepository.findAllByProductId(productToSave);
+            allByProductId
+                    .forEach(image -> image.setIsDefault(false));
+            imageRepository.saveAll(allByProductId);
         }
     }
 
@@ -189,20 +163,20 @@ public class UpdateProductService {
         listaDeImagens.removeIf(i -> list.contains(i.getId()));
 
         List<Image> imagesToSave = new ArrayList<>();
-        for(Image i: listaDeImagens){
-            if(Boolean.TRUE.equals(i.getIsDefault())){
+        for (Image i : listaDeImagens) {
+            if (Boolean.TRUE.equals(i.getIsDefault())) {
                 imagesToSave.add(i);
             }
         }
 
-        if(imagesToSave.isEmpty()){
+        if (imagesToSave.isEmpty()) {
             listaDeImagens.get(0).setIsDefault(true);
         }
 
         list.forEach(imageRepository::deleteById);
         imageRepository.saveAll(listaDeImagens);
-        for(UpdateProductImage i: updateProductRequestDTO.getImagesToDelete()){
-            String pathImage = productToSave.getId().toString() +"/"+ i.getPath();
+        for (UpdateProductImage i : updateProductRequestDTO.getImagesToDelete()) {
+            String pathImage = productToSave.getId().toString() + "/" + i.getPath();
             imageRemove.removeImage("produtosImagem/", pathImage);
         }
     }

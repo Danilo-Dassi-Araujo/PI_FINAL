@@ -40,7 +40,7 @@ public class ProductBuilder {
                 .builder()
                 .id(product.getId())
                 .description(!ObjectUtils.isEmpty(productRequest.getDescription()) ? productRequest.getDescription() : product.getDescription())
-                .rate(!ObjectUtils.isEmpty(productRequest.getRate()) ? productRequest.getRate() : product.getRate())
+                .rate(!ObjectUtils.isEmpty(productRequest.getRating()) ? productRequest.getRating() : product.getRate())
                 .name(!ObjectUtils.isEmpty(productRequest.getName()) ? productRequest.getName() : product.getName())
                 .price(!ObjectUtils.isEmpty(productRequest.getPrice()) ? productRequest.getPrice() : product.getPrice())
                 .stockQuantity(!ObjectUtils.isEmpty(productRequest.getStock()) ? productRequest.getStock() : product.getStockQuantity())

@@ -26,4 +26,13 @@ public enum StatusOrderEnum {
         throw new IllegalArgumentException("ID inválido: " + id);
     }
 
+    public static String getByIdForFront(Integer id) {
+        for (StatusOrderEnum status : StatusOrderEnum.values()) {
+            if (status.id.equals(id)) {
+                return status.getName();
+            }
+        }
+        throw new IllegalArgumentException("ID inválido: " + id);
+    }
+
 }

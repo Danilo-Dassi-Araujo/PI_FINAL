@@ -13,4 +13,14 @@ public enum GenderEnum {
 
     private final String id;
     private final String gender;
+
+    public static GenderEnum getById(String id) {
+        for (GenderEnum paymentMethod : GenderEnum.values()) {
+            if (paymentMethod.getId().equals(id)) {
+                return paymentMethod;
+            }
+        }
+        throw new IllegalArgumentException("ID inválido: " + id);
+    }
+
 }

@@ -35,13 +35,16 @@ public class ListingUsersService {
         for (User user : byUsers) {
             ListingDTOResponse build = ListingDTOResponse
                     .builder()
+                    .id(user.getId())
                     .cpf(user.getCpf())
                     .name(user.getName())
                     .email(user.getEmail())
                     .groupIndicator(user.getRole().getName())
                     .isActive(user.getIsActive())
                     .build();
-            usersList.add(build);
+            if(!UserRole.CLIENT.getName().equals(build.getName())){
+                usersList.add(build);
+            }
         }
         return usersList;
     }
@@ -57,13 +60,16 @@ public class ListingUsersService {
         for (User user : allUsers) {
             ListingDTOResponse build = ListingDTOResponse
                     .builder()
+                    .id(user.getId())
                     .cpf(user.getCpf())
                     .name(user.getName())
                     .email(user.getEmail())
                     .groupIndicator(user.getRole().getName())
                     .isActive(user.getIsActive())
                     .build();
-            usersList.add(build);
+            if(!UserRole.CLIENT.getName().equals(build.getGroupIndicator())){
+                usersList.add(build);
+            }
         }
         return usersList;
     }

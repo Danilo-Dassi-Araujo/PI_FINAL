@@ -32,7 +32,7 @@ public class EnderecoController {
     }
 
     @PutMapping("/newDeliveryAddress/{id}")
-    public void addAddress(@PathVariable UUID id, @RequestBody DeliveryAddressRequestDTO deliveryToAdd) {
+    public void addAddress(@PathVariable UUID id, @RequestBody DeliveryAddressRequestDTO deliveryToAdd) throws Exception {
         registerNewAddressDeliveryService.registerNewAddress(deliveryToAdd, id);
     }
 

@@ -45,7 +45,7 @@ public class RegisterClientService {
         Client toSave = ClientBuilder.buildFrom(clientRequestDTO, passwordEncrypted, gender);
         Client savedClient = clientRepository.save(toSave);
 
-        User userToSave = UserBuilder.buildFrom(clientRequestDTO);
+        User userToSave = UserBuilder.buildFrom(clientRequestDTO, passwordEncrypted);
         userRepository.save(userToSave);
 
         Address toSaveAddress = AddressBuilder.buildFrom(clientRequestDTO, savedClient);
